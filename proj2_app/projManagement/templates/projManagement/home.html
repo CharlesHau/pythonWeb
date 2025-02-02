@@ -1,10 +1,27 @@
-{% extends  'projManagement/overlay.html' %}
-
-
-
-
+{% extends 'projManagement/overlay.html' %}
 
 {% block content %}
 <h1>Bienvenue sur le site</h1>
-<p>Ceci est la page d'accueil de votre site.</p>
+<p>test.</p>
+
+<div class="dashboard">
+    <div class="card">
+        <h2>Missions Actives</h2>
+        <p>{{ missions_actives }}</p>
+    </div>
+    <div class="card">
+        <h2>Factures en attente</h2>
+        <p>{{ factures_en_attente }}</p>
+    </div>
+    <div class="card">
+        <h2>Nombre de Clients</h2>
+        <p>{{ total_clients }}</p>
+    </div>
+    <div class="card">
+        <h2>Journaux enregistrés</h2>
+        <p>{{ total_journaux }}</p>
+    </div>
+</div>
+
+
 {% endblock %}

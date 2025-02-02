@@ -1,0 +1,30 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Liste des Factures</h1>
+<a href="{% url 'creer_facture' %}" class="btn">Créer une nouvelle facture</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID Facture</th>
+            <th>Date d'émission</th>
+            <th>Montant total</th>
+            <th>Journal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for facture in factures %}
+        <tr>
+            <td>{{ facture.id }}</td>
+            <td>{{ facture.date_emission }}</td>
+            <td>{{ facture.montant_total }}</td>
+            <td>{{ facture.journal.mission.title }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Aucune facture trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

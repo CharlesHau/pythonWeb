@@ -1,0 +1,15 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Modifier un client</h1>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Enregistrer les modifications" class="btn">
+</form>
+
+<a href="{% url 'detail_client' client.id %}" class="btn">Annuler</a>
+{% endblock %}

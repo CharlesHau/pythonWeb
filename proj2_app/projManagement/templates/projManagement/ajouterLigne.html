@@ -1,0 +1,22 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Ajouter une ligne au Journal</h1>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+            {% if field.name != "journal" %}
+                <tr>
+                    <th>{{ field.label_tag }}</th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <input type="submit" value="Ajouter la ligne" class="btn">
+</form>
+
+<a href="{% url 'detail_journal' journal.id %}" class="btn">Retour au journal</a>
+{% endblock %}

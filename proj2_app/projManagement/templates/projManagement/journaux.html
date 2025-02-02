@@ -1,0 +1,28 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Liste des Journaux</h1>
+<a href="{% url 'creer_journal' %}" class="btn">Créer un nouveau journal</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Mission</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for journal in journaux %}
+        <tr>
+            <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.date_creation }}</a></td>
+            <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.mission.title }}</a></td>
+            <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.statut }}</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucun journal trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

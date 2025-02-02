@@ -1,29 +1,24 @@
-"""
-URL configuration for proj2 project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
 from django.urls import path
 from projManagement import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('debut/', views.index),
     path('', views.home, name='home'),
-    path('clients/', views.clients, name='clients'),
-    path('missions/', views.missions, name='missions'),
     path('home/', views.home, name='home'),
+    path('clients/', views.clients, name='clients'),
+    path('clients/<int:id>/', views.detail_client, name='detail_client'),
+    path('clients/creer/', views.creer_client, name='creer_client'),
+    path('clients/<int:id>/modifier/', views.modifier_client, name='modifier_client'),
+    path('missions/', views.missions, name='missions'),
+    path('missions/creer/', views.creer_mission, name='creer_mission'),
+    path('missions/<int:id>/', views.detail_mission, name='detail_mission'),
+    path('factures/', views.factures, name='factures'),
+    path('factures/creer/', views.creer_facture, name='creer_facture'),
+    path('prestations/', views.prestations, name='prestations'),
+    path('prestations/creer/', views.creer_prestation, name='creer_prestation'),
+    path('journaux/', views.journaux, name='journaux'),
+    path('journaux/creer/', views.creer_journal, name='creer_journal'),
+    path('journaux/<int:id>/', views.detail_journal, name='detail_journal'),
+    path('journaux/<int:id>/ajouter_ligne/', views.ajouter_ligne, name='ajouter_ligne'),
 ]

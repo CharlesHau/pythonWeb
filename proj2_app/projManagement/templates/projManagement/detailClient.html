@@ -1,0 +1,54 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails du Client</h1>
+
+<table border="1">
+    <tr>
+        <th>Nom</th>
+        <td>{{ client.nom }}</td>
+    </tr>
+    <tr>
+        <th>Prénom</th>
+        <td>{{ client.prenom }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ client.email }}</td>
+    </tr>
+    <tr>
+        <th>Téléphone</th>
+        <td>{{ client.telephone }}</td>
+    </tr>
+    <tr>
+        <th>Adresse</th>
+        <td>{{ client.adresse }}</td>
+    </tr>
+</table>
+
+<h2>Missions associées</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Libellé</th>
+            <th>Description</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mission in client.missions.all %}
+        <tr>
+             <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.libelle }}</a></td>
+            <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.description }}</a></td>
+            <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.statut }}</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucune mission associée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'clients' %}" class="btn">Retour à la liste des clients</a>
+{% endblock %}

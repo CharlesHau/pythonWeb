@@ -1,0 +1,30 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Liste des Prestations</h1>
+<a href="{% url 'creer_prestation' %}" class="btn">Créer un nouveau client</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID Prestation</th>
+            <th>Diminutif</th>
+            <th>Description</th>
+            <th>Prix</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prestation in prestations %}
+        <tr>
+            <td>{{ prestation.id }}</td>
+            <td>{{ prestation.diminutif }}</td>
+            <td>{{ prestation.description }}</td>
+            <td>{{ prestation.prix }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Aucune prestation trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

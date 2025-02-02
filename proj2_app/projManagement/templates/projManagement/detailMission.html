@@ -1,0 +1,58 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails de la Mission</h1>
+
+<table border="1">
+    <tr>
+        <th>Libellé</th>
+        <td>{{ mission.libelle }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ mission.description }}</td>
+    </tr>
+    <tr>
+        <th>Date de début</th>
+        <td>{{ mission.start_date }}</td>
+    </tr>
+    <tr>
+        <th>Date de fin</th>
+        <td>{{ mission.end_date }}</td>
+    </tr>
+    <tr>
+        <th>Statut</th>
+        <td>{{ mission.statut }}</td>
+    </tr>
+    <tr>
+        <th>Client</th>
+        <td><a href="{% url 'detail_client' mission.client.id %}">{{ mission.client.nom }} {{ mission.client.prenom }}</a></td>
+    </tr>
+</table>
+
+<h2>Journaux associés</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date de création</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for journal in mission.journaux.all %}
+        <tr>
+            <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.id }}</a></td>
+            <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.date_creation }}</a></td>
+            <td>{{ journal.statut }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">Aucun journal associé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'missions' %}" class="btn">Retour à la liste des missions</a>
+{% endblock %}

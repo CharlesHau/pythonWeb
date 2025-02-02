@@ -1,0 +1,15 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Créer une nouvelle mission</h1>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Enregistrer" class="btn">
+</form>
+
+<a href="{% url 'missions' %}" class="btn">Retour à la liste des missions</a>
+{% endblock %}

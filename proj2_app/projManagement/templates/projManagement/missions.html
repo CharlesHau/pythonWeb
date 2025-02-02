@@ -1,0 +1,32 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Liste des Missions</h1>
+<a href="{% url 'creer_mission' %}" class="btn">Créer une nouvelle mission</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Client</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mission in missions %}
+        <tr>
+            <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.title }}</a></td>
+            <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.description }}</a></td>
+            <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.start_date }}</a></td>
+            <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.end_date }}</a></td>
+            <td><a href="{% url 'detail_client' mission.client.id %}">{{ mission.client.nom }} {{ mission.client.prenom }}</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Aucune mission trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 
@@ -7,10 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'projManagement/style.css' %}"/>
-  
-    
-    
-
 </head>
 <body>
     <header>
@@ -19,6 +14,9 @@
                 <li><a href="{% url 'home' %}">Accueil</a></li>
                 <li><a href="{% url 'clients' %}">Clients</a></li>
                 <li><a href="{% url 'missions' %}">Missions</a></li>
+                <li><a href="{% url 'journaux' %}">Journaux</a></li>
+                <li><a href="{% url 'factures' %}">Factures</a></li>
+                <li><a href="{% url 'prestations' %}">Prestations</a></li>
             </ul>
         </nav>
     </header>

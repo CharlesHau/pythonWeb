@@ -1,0 +1,17 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Créer une nouvelle prestation</h1>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <br>
+    <input type="submit" value="Enregistrer" class="btn">
+ 
+</form>
+<br>
+<a href="{% url 'prestations' %}" class="btn">Retour à la liste des prestations</a>
+{% endblock %}

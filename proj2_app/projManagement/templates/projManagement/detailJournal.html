@@ -1,0 +1,48 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails du Journal</h1>
+
+<table border="1">
+    <tr>
+        <th>Date de Création</th>
+        <td>{{ journal.date_creation }}</td>
+    </tr>
+
+    <tr>
+        <th>Mission</th>
+        <td>{{ journal.mission.title }}</td>
+    </tr>
+    <tr>
+        <th>Statut</th>
+        <td>{{ journal.statut }}</td>
+    </tr>
+</table>
+
+<h2>Lignes associées</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Quantité</th>
+            <th>Prestation</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ligne in journal.lignes.all %}
+        <tr>
+            <td>{{ ligne.description }}</td>
+            <td>{{ ligne.quantite }}</td>
+            <td>{{ ligne.prestation.diminutif }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucune ligne associée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'ajouter_ligne' journal.id %}" class="btn">Ajouter une ligne</a>
+<a href="{% url 'journaux' %}" class="btn">Retour à la liste des journaux</a>
+{% endblock %}
