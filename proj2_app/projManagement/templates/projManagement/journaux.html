@@ -2,6 +2,11 @@
 
 {% block content %}
 <h1>Liste des Journaux</h1>
+
+<form method="GET" action="">
+    <input type="text" name="q" placeholder="Rechercher un client..." value="{{ request.GET.q }}">
+    <button type="submit" class="btn">Rechercher</button>
+</form>
 <a href="{% url 'creer_journal' %}" class="btn">Créer un nouveau journal</a>
 <table border="1">
     <thead>

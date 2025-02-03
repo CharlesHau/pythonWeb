@@ -1,0 +1,34 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails de la Ligne</h1>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <td>{{ ligne.date }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ ligne.description }}</td>
+    </tr>
+    <tr>
+        <th>Quantité</th>
+        <td>{{ ligne.quantite }}</td>
+    </tr>
+    <tr>
+        <th>Prestation</th>
+        <td>{{ ligne.prestation.diminutif }}</td>
+    </tr>
+    {% if ligne.prix_total %}
+    <tr>
+        <th>Prix total</th>
+        <td>{{ ligne.prix_total }}</td>
+    </tr>
+    {% endif %}
+</table>
+
+<!-- Bouton pour accéder au formulaire de modification -->
+<a href="{% url 'modifier_ligne' ligne.id %}" class="btn">Modifier la ligne</a>
+<a href="{% url 'journaux' %}" class="btn">Retour aux journaux</a>
+{% endblock %}

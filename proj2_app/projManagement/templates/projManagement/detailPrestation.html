@@ -1,0 +1,23 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détail de la Prestation</h1>
+
+<table border="1">
+    <tr>
+        <th>Diminutif</th>
+        <td>{{ prestation.diminutif }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ prestation.description }}</td>
+    </tr>
+    <tr>
+        <th>Prix</th>
+        <td>{{ prestation.prix }}</td>
+    </tr>
+</table>
+
+<a href="{% url 'prestations' %}" class="btn">Retour à la liste des prestations</a>
+<a href="{% url 'modifier_prestation' prestation.id %}" class="btn">Modifier la prestation</a>
+{% endblock %}

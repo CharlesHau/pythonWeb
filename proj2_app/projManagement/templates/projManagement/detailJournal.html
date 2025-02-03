@@ -8,7 +8,6 @@
         <th>Date de Création</th>
         <td>{{ journal.date_creation }}</td>
     </tr>
-
     <tr>
         <th>Mission</th>
         <td>{{ journal.mission.title }}</td>
@@ -26,6 +25,7 @@
             <th>Description</th>
             <th>Quantité</th>
             <th>Prestation</th>
+            <th>Prix total</th>
         </tr>
     </thead>
     <tbody>
@@ -34,15 +34,23 @@
             <td>{{ ligne.description }}</td>
             <td>{{ ligne.quantite }}</td>
             <td>{{ ligne.prestation.diminutif }}</td>
+            <td>{{ ligne.prix_total }}</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="3">Aucune ligne associée.</td>
+            <td colspan="4">Aucune ligne associée.</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
-<a href="{% url 'ajouter_ligne' journal.id %}" class="btn">Ajouter une ligne</a>
+
+{% if modifiable %}
+    <a href="{% url 'ajouter_ligne' journal.id %}" class="btn">Ajouter une ligne</a>
+    <a href="{% url 'modifier_journal' journal.id %}" class="btn">Modifier le journal</a>
+{% else %}
+    <p class="info">Ce journal ne peut pas être modifié car il est associé à une facture.</p>
+{% endif %}
+
 <a href="{% url 'journaux' %}" class="btn">Retour à la liste des journaux</a>
 {% endblock %}

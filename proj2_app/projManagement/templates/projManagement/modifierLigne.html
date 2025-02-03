@@ -1,0 +1,14 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Modifier la Ligne</h1>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn">Enregistrer les modifications</button>
+    <a href="{% url 'detail_ligne' ligne.id %}" class="btn">Annuler</a>
+</form>
+{% endblock %}
