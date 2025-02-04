@@ -12,11 +12,16 @@ urlpatterns = [
     path('clients/creer/', views.creer_client, name='creer_client'),
     path('clients/<int:id>/modifier/', views.modifier_client, name='modifier_client'),
     path('missions/', views.missions, name='missions'),
+    path('missionsEnCours/', views.missions_en_cours, name='missions_en_cours'),
+    path('missionsEnAttente/', views.missions_en_attente, name='missions_en_attente'),
+    path('missionsFermees/', views.missions_fermees, name='missions_fermees'),
     path('missions/creer/', views.creer_mission, name='creer_mission'),
     path('missions/<int:id>/', views.detail_mission, name='detail_mission'),
     path('missions/<int:id>/modifier/', views.modifier_mission, name='modifier_mission'),
     path('factures/', views.factures, name='factures'),
+    path('factures/<int:id>/', views.detail_facture, name='detail_facture'),
     path('factures/creer/', views.creer_facture, name='creer_facture'),
+    
     path('prestations/', views.prestations, name='prestations'),
     path('prestations/creer/', views.creer_prestation, name='creer_prestation'),
     path('prestations/<int:id>/', views.detail_prestation, name='detail_prestation'),
@@ -28,5 +33,6 @@ urlpatterns = [
     path('journaux/<int:id>/modifier/', views.modifier_journal, name='modifier_journal'),
     path('lignes/<int:id>/', views.detail_ligne, name='detail_ligne'),
     path('lignes/<int:id>/modifier/', views.modifier_ligne, name='modifier_ligne'),
+    path('missions/reporting/', views.reporting_mission, name='reporting_mission'),
 
 ]

@@ -9,14 +9,35 @@
 </form>
 
 <a href="{% url 'creer_mission' %}" class="btn">Créer une nouvelle mission</a>
+<a href="{% url 'reporting_mission' %}" class="btn">Accéder au reporting des missions</a>
+
 <table border="1">
     <thead>
         <tr>
+        
             <th>Titre</th>
             <th>Description</th>
             <th>Date de début</th>
             <th>Date de fin</th>
             <th>Client</th>
+            <th>
+                <!--Ci-dessous c'est une astuce pour utiliser des liens de redirections (balise <a>) -->
+                <!-- dans un input select ce qui n'est normalement pas possible -->
+                <!-- on utilise un tout petit peu de JS ("onchange") -->
+                <!-- pour rediriger vers un lien href (c-a-d la valeur de l'option sélectionné) -->
+                <!-- dans les valeurs des options on redirige vers une url qui permettra de faire une recherche/tri -->
+                
+                <!-- par exemple dans le code html -->
+               <!-- <option value="/missions/">Statut</option> -->
+                <!-- <option value="/missions/?statut=en-cours">En cours</option> -->
+                <select name="Statut" id="statut-select" onchange="window.location.href=this.value;">
+                    <option value="">Statut</option>
+                    <option value="{% url 'missions' %}">Tout</option>
+                    <option value="{% url 'missions_en_cours' %}">En cours</option>
+                    <option value="{% url 'missions_en_attente' %}">En attente</option>
+                    <option value="{% url 'missions_fermees' %}">Fermée</option>
+                </select>
+            </th>
             <th>Budget</th>
             <th>Montant Facturé</th>
         </tr>
@@ -29,6 +50,7 @@
             <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.start_date }}</a></td>
             <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.end_date }}</a></td>
             <td><a href="{% url 'detail_client' mission.client.id %}">{{ mission.client.nom }} {{ mission.client.prenom }}</a></td>
+            <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.statut }}</a></td>
             <td>{{ mission.budget|floatformat:2 }} €</td>
             <td>{{ mission.montant_facture|floatformat:2 }} €</td>
         </tr>

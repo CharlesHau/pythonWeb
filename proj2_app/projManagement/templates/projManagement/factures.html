@@ -15,15 +15,17 @@
             <th>Date d'émission</th>
             <th>Montant total</th>
             <th>Journal</th>
+            <th>Statut</th>
         </tr>
     </thead>
     <tbody>
         {% for facture in factures %}
         <tr>
-            <td>{{ facture.id }}</td>
-            <td>{{ facture.date_emission }}</td>
-            <td>{{ facture.montant_total }}</td>
-            <td>{{ facture.journal.mission.title }}</td>
+            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.id }}</a></td>
+            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.date_emission }}</a></td>
+            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.montant_total }}</a></td>
+            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.journal.mission.title }}</a></td>
+            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.statut }}</a></td>
         </tr>
         {% empty %}
         <tr>

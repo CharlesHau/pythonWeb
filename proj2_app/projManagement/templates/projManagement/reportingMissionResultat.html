@@ -1,0 +1,72 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Résultats du Reporting des Missions</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn">Rechercher</button>
+</form>
+
+{% if missions %}
+    <h2>{{ missions.count }} mission(s) trouvée(s) :</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Budget</th>
+                <th>Facturé</th>
+                <th>Statut</th>
+                <th>Journaux associés</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mission in missions %}
+            <tr>
+                <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.title }}</a></td>
+                <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.start_date }}</a></td>
+                <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.end_date }}</a></td>
+                <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.budget }}</a></td>
+                <td>{{ mission.montant_facture|floatformat:2 }} €</td>
+                <td>{{ mission.statut }}</td>
+                <td style="margin-left:10px">
+                    {% if mission.journaux.all %}
+                        <ul>
+                            {% for journal in mission.journaux.all %}
+                            <li>
+                                <a href="{% url 'detail_journal' journal.id %}">Journal N°{{ journal.id }} - {{ journal.statut }} ({{ journal.date_creation }})</a>
+                                
+                                <!-- Vérification si la facture est associée -->
+                                {% if journal.facture %}
+                                    <ul>
+                                        <li style="margin-left:20px"> 
+                                            <a href="">
+                                                Facture #{{ journal.facture.id }} - {{ journal.facture.date_emission }} - {{ journal.facture.montant_total|floatformat:2 }} € - {{ journal.facture.statut }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                {% else %}
+                                    <p>Aucune facture associée</p>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        Aucun journal associé
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Aucune mission ne correspond à ces critères.</p>
+{% endif %}
+
+<a href="{% url 'home' %}" class="btn">Retour à l'accueil</a>
+{% endblock %}

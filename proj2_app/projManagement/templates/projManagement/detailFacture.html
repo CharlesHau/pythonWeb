@@ -1,0 +1,23 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails de la facture</h1>
+<h2>Facture associée au <a href="{% url 'detail_journal' facture.journal.id %}">journal {{facture.journal.id}}</a></h2>
+
+<table border="1">
+    <tr>
+        <th>Date d'émission</th>
+        <td>{{ facture.date_emission}}</td>
+    </tr>
+    <tr>
+        <th>Montant total</th>
+        <td>{{ facture.montant_total }}</td>
+    </tr>
+    <tr>
+        <th>Statut</th>
+        <td>{{ facture.statut }}</td>
+    </tr>
+</table>
+
+<a href="{% url 'factures' %}" class="btn">Retour à la liste des factures</a>
+{% endblock %}

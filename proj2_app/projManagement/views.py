@@ -1,17 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Client, Mission, Journal, Facture, Prestation, Ligne
-from .forms import ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm
+from .forms import ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm
 from django.urls import reverse
 from django.utils.timezone import now
 from django.db.models import Sum,  Q
 
-import json
-from django.core.serializers.json import DjangoJSONEncoder
 # Create your views here.
-
+# à supprimer
 def index(request):
     return HttpResponse('<H1> hello all</h1>')
+
+
+def home(request):
+    missions_actives = Mission.objects.filter(statut='en cours').count()
+    factures_en_attente = Facture.objects.filter(montant_total__gt=0).count()
+    total_clients = Client.objects.count()
+    total_journaux = Journal.objects.count()
+    context = {
+        'missions_actives': missions_actives,
+        'factures_en_attente': factures_en_attente,
+        'total_clients': total_clients,
+        'total_journaux': total_journaux,
+    }
+    return render(request, 'projManagement/home.html', context)
 
 def clients(request):
     query = request.GET.get('q', '')
@@ -52,27 +64,15 @@ def modifier_client(request, id):
     return render(request, 'projManagement/modifierClient.html', {'form': formulaire, 'client': client})
 
 
+def supprimer_client(request,id):
+    client = Client.objects.filter(id=id).first()
+    missionsDuClient = Mission.objects.filter(client=client)
+    
+    if missionsDuClient.exists():
+        return render(request, 'projManagement/detailClient.html', {'client': client})
+    client.delete()
+    clients(request)
 
-def home(request):
-    missions_actives = Mission.objects.filter(statut='en cours').count()
-    factures_en_attente = Facture.objects.filter(montant_total__gt=0).count()
-    total_clients = Client.objects.count()
-    total_journaux = Journal.objects.count()
-
-    # Récupération des missions avec leur titre et date de début
-    missions = Mission.objects.all().values('title', 'start_date')
-    missions_data = list(missions)
-    # On encode en JSON en utilisant DjangoJSONEncoder pour gérer les dates
-    missions_json = json.dumps(missions_data, cls=DjangoJSONEncoder)
-
-    context = {
-        'missions_actives': missions_actives,
-        'factures_en_attente': factures_en_attente,
-        'total_clients': total_clients,
-        'total_journaux': total_journaux,
-        'missions_json': missions_json,
-    }
-    return render(request, 'projManagement/home.html', context)
 
 
 def missions(request):
@@ -96,6 +96,88 @@ def missions(request):
         ) or 0
         mission.montant_facture = montant_facture
 
+    return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
+
+
+
+def missions_en_cours(request):
+    query = request.GET.get('q', '')
+    missions_list = Mission.objects.all()
+    missions_list=missions_list.filter(statut="En cours")
+    if query:
+        missions_list = missions_list.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(client__nom__icontains=query) |
+            Q(client__prenom__icontains=query) |
+            Q(budget__icontains=query)
+        )
+    for mission in missions_list:
+        montant_facture = (
+            Facture.objects.filter(journal__mission=mission)
+            .aggregate(total=Sum("montant_total"))
+            ["total"]
+        ) or 0
+        mission.montant_facture = montant_facture
+    
+    
+    
+    
+    
+    
+    return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
+
+def missions_en_attente(request):
+    query = request.GET.get('q', '')
+    missions_list = Mission.objects.all()
+    missions_list=missions_list.filter(statut="en attente")
+    if query:
+        missions_list = missions_list.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(client__nom__icontains=query) |
+            Q(client__prenom__icontains=query) |
+            Q(budget__icontains=query)
+        )
+    for mission in missions_list:
+        montant_facture = (
+            Facture.objects.filter(journal__mission=mission)
+            .aggregate(total=Sum("montant_total"))
+            ["total"]
+        ) or 0
+        mission.montant_facture = montant_facture
+    
+    
+    
+    
+    
+    
+    return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
+def missions_fermees(request):
+    query = request.GET.get('q', '')
+    missions_list = Mission.objects.all()
+    
+    missions_list=missions_list.filter(statut="fermé")
+    if query:
+        missions_list = missions_list.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(client__nom__icontains=query) |
+            Q(client__prenom__icontains=query) |
+            Q(budget__icontains=query)
+        )
+    for mission in missions_list:
+        montant_facture = (
+            Facture.objects.filter(journal__mission=mission)
+            .aggregate(total=Sum("montant_total"))
+            ["total"]
+        ) or 0
+        mission.montant_facture = montant_facture
+    
+    
+    
+    
+    
     return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
 
 def creer_mission(request):
@@ -127,7 +209,56 @@ def modifier_mission(request, id):
     return render(request, 'projManagement/modifierMission.html', {'form': formulaire, 'mission': mission})
 
 
+def reporting_mission(request):
+    if request.method == 'POST':
+        form = RechercheMissionForm(request.POST)
+        if form.is_valid():
+            # On démarre avec toutes les missions
+            missions = Mission.objects.all()
 
+            # Filtrer sur la date de début : conserver les missions dont la date de début
+            # est postérieure ou égale à la valeur saisie
+            date_debut = form.cleaned_data.get('date_debut')
+            if date_debut:
+                missions = missions.filter(start_date__gte=date_debut)
+
+            # Filtrer sur la date de fin : conserver les missions dont la date de fin
+            # est antérieure ou égale à la valeur saisie
+            date_fin = form.cleaned_data.get('date_fin')
+            if date_fin:
+                missions = missions.filter(end_date__lte=date_fin)
+
+            # Filtrer sur le budget minimal
+            budget_min = form.cleaned_data.get('budget_min')
+            if budget_min is not None:
+                missions = missions.filter(budget__gte=budget_min)
+
+            # Filtrer sur le budget maximal
+            budget_max = form.cleaned_data.get('budget_max')
+            if budget_max is not None:
+                missions = missions.filter(budget__lte=budget_max)
+
+            # Filtrer sur le statut (recherche insensible à la casse)
+            statut_mission = form.cleaned_data.get('statut_mission')
+            if statut_mission:
+                missions = missions.filter(statut__icontains=statut_mission)
+            
+            
+            for mission in missions:
+                montant_facture = (
+                    Facture.objects.filter(journal__mission=mission)
+                    .aggregate(total=Sum("montant_total"))
+                    ["total"]
+                ) or 0
+                mission.montant_facture = montant_facture
+                
+            return render(request, 'projManagement/reportingMissionResultat.html', {
+                'missions': missions,
+                'form': form,
+            })
+    else:
+        form = RechercheMissionForm()
+    return render(request, 'projManagement/reportingMission.html', {'form': form})
 
 def journaux(request):
     query = request.GET.get('q', '')
@@ -225,6 +356,9 @@ def creer_facture(request):
     
     return render(request, 'projManagement/creationFacture.html', {'form': formulaire})
 
+def detail_facture(request, id):
+    facture = Facture.objects.filter(id=id).first()
+    return render(request, 'projManagement/detailFacture.html', {'facture': facture})
 
 
 def detail_ligne(request, id):

@@ -1,0 +1,14 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Reporting des Missions</h1>
+<p>Utilisez le formulaire ci-dessous pour filtrer les missions.</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn">Rechercher</button>
+</form>
+{% endblock %}

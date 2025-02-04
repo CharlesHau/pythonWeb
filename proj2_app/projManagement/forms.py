@@ -40,3 +40,32 @@ class FactureForm(forms.ModelForm):
     class Meta:
         model = Facture
         fields = ['journal']
+
+
+class RechercheMissionForm(forms.Form):
+    date_debut = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        required=False,
+        label="Date de début (à partir de)"          
+        )
+    date_fin = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        required=False,
+        label="Date de fin (jusqu'au)"   
+        )
+    budget_min = forms.DecimalField(
+        required=False,
+        label="Budget minimal"
+        )
+    budget_max = forms.DecimalField(
+        required=False,
+        label="Budget maximal"
+        )
+    statut_mission = forms.CharField(
+        required=False,
+        label="Statut de la mission"
+        )
+    class Meta:
+        widgets = {
+           'date': forms.DateInput(attrs={'type': 'date'}),
+       }
