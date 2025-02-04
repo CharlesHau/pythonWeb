@@ -41,6 +41,8 @@ class Facture(models.Model):
     journal = models.OneToOneField(Journal, on_delete=models.CASCADE, related_name="facture")
     date_emission = models.DateField(auto_now_add=True)
     montant_total = models.DecimalField(max_digits=10, decimal_places=2)
+    statut = models.CharField(max_length=20, choices=[("impayé", "Impayé"), ("payé", "Payé"), ("en retard", "En retard")], default='Impayé')
+    
 
     def __str__(self):
         return f"Facture pour {self.journal.mission.title}"
