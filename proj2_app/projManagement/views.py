@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Client, Mission, Journal, Facture, Prestation, Ligne
-from .forms import ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm
+from .models import Client, Mission, Journal, Facture, Prestation, Ligne, Collaborateur, FeuilleDeTemps, LigneDeFeuilleDeTemps
+from .forms import ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm
 from django.urls import reverse
 from django.utils.timezone import now
 from django.db.models import Sum,  Q
@@ -434,3 +434,83 @@ def modifier_prestation(request, id):
     else:
         formulaire = PrestationForm(instance=prestation)
     return render(request, 'projManagement/modifierPrestation.html', {'form': formulaire, 'prestation': prestation})
+
+def collaborateurs(request):
+    query = request.GET.get('q', '')  # Récupère la requête de recherche
+    collaborateurs_list = Collaborateur.objects.all()
+
+    # Filtre les collaborateurs en fonction de la recherche
+    if query:
+        collaborateurs_list = collaborateurs_list.filter(
+            Q(nom__icontains=query) |
+            Q(prenom__icontains=query) |
+            Q(email__icontains=query)
+        )
+
+    return render(request, 'projManagement/collaborateurs.html', {'collaborateurs': collaborateurs_list, 'query': query})
+
+
+def creer_collaborateur(request):
+    if request.method == 'POST':
+        formulaire = CollaborateurForm(request.POST)
+        if formulaire.is_valid():
+            formulaire.save()
+            return HttpResponseRedirect(reverse('collaborateurs'))
+    else:
+        formulaire = CollaborateurForm()
+    return render(request, 'projManagement/creationCollaborateur.html', {'form': formulaire})
+def detail_collaborateur(request, id):
+    
+    collaborateur = Collaborateur.objects.filter(id=id).first()  
+    return render(request, 'projManagement/detailCollaborateur.html', {'collaborateur': collaborateur})
+
+
+
+    #journal = Journal.objects.filter(id=id).first()
+    
+    #modifiable = not (hasattr(journal, 'facture') and journal.facture)
+    #return render(request, 'projManagement/detailJournal.html', {'journal': journal, 'modifiable': modifiable})
+
+
+def modifier_collaborateur(request, id):
+  
+    collaborateur = Collaborateur.objects.filter(id=id).first()  
+
+    if request.method == 'POST':
+        formulaire = CollaborateurForm(request.POST, instance=collaborateur)
+        if formulaire.is_valid():
+            formulaire.save()  # Sauvegarde les modifications
+            return HttpResponseRedirect(reverse('detail_collaborateur', args=[id])) 
+    else:
+        formulaire = CollaborateurForm(instance=collaborateur)
+
+    return render(request, 'projManagement/modifierCollaborateur.html', {'form': formulaire, 'collaborateur': collaborateur})
+
+def feuilles_de_temps(request):
+    
+    query = request.GET.get('q', '')  # Récupère la requête de recherche
+    feuilles_list = FeuilleDeTemps.objects.all()
+
+    # Filtre les feuilles de temps en fonction de la recherche
+    if query:
+        feuilles_list = feuilles_list.filter(
+            Q(collaborateur__nom__icontains=query) |
+            Q(collaborateur__prenom__icontains=query) |
+            Q(mission__title__icontains=query)
+        )
+
+    return render(request, 'projManagement/feuillesDeTemps.html', {'feuilles': feuilles_list, 'query': query})
+
+def creer_feuille_de_temps(request):
+    """
+    Vue pour créer une nouvelle feuille de temps.
+    """
+    if request.method == 'POST':
+        formulaire = FeuilleDeTempsForm(request.POST)
+        if formulaire.is_valid():
+            formulaire.save()
+            return HttpResponseRedirect(reverse('feuilles_de_temps'))  # Redirige vers la liste des feuilles de temps
+    else:
+        formulaire = FeuilleDeTempsForm()
+
+    return render(request, 'projManagement/creationFeuilleDeTemps.html', {'form': formulaire})

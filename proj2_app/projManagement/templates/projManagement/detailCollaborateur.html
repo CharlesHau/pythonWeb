@@ -1,0 +1,66 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails du Collaborateur</h1>
+
+<!-- Informations du collaborateur -->
+<table border="1">
+    <tr>
+        <th>Nom</th>
+        <td>{{ collaborateur.nom }}</td>
+    </tr>
+    <tr>
+        <th>Prénom</th>
+        <td>{{ collaborateur.prenom }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ collaborateur.email }}</td>
+    </tr>
+    <tr>
+        <th>Rôle</th>
+        <td>{{ collaborateur.get_role_display }}</td>
+    </tr>
+    <tr>
+        <th>Tarif Horaire</th>
+        <td>{{ collaborateur.tarif_horaire }} €/h</td>
+    </tr>
+</table>
+
+<!-- Feuilles de temps associées -->
+<h2>Feuilles de Temps associées</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Mission</th>
+            <th>Date de Création</th>
+            <th>Lignes de Temps</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for feuille in collaborateur.feuilles_de_temps.all %}
+        <tr>
+            <td>{{ feuille.mission.title }}</td>
+            <td>{{ feuille.date_creation }}</td>
+            <td>
+                <ul>
+                    {% for ligne in feuille.lignes.all %}
+                    <li>{{ ligne.description }} ({{ ligne.heures_travaillees }} heures le {{ ligne.date }})</li>
+                    {% empty %}
+                    <li>Aucune ligne de temps associée.</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucune feuille de temps associée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Actions -->
+<a href="{% url 'modifier_collaborateur' collaborateur.id %}" class="btn">Modifier le collaborateur</a>
+<a href="{% url 'collaborateurs' %}" class="btn">Retour à la liste des collaborateurs</a>
+{% endblock %}

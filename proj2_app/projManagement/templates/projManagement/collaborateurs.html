@@ -1,0 +1,42 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Liste des Collaborateurs</h1>
+
+<!-- Formulaire de recherche -->
+<form method="GET" action="">
+    <input type="text" name="q" placeholder="Rechercher un collaborateur..." value="{{ request.GET.q }}">
+    <button type="submit" class="btn">Rechercher</button>
+</form>
+
+<!-- Lien pour créer un nouveau collaborateur (si nécessaire) -->
+<a href="{% url 'creer_collaborateur' %}" class="btn">Créer un nouveau collaborateur</a>
+
+<!-- Tableau des collaborateurs -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Tarif Horaire</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for collaborateur in collaborateurs %}
+        <tr>
+            <td><a href="{% url 'detail_collaborateur' collaborateur.id %}">{{ collaborateur.nom }}</a></td>
+            <td><a href="{% url 'detail_collaborateur' collaborateur.id %}">{{ collaborateur.prenom }}</a></td>
+            <td><a href="{% url 'detail_collaborateur' collaborateur.id %}">{{ collaborateur.email }}</a></td>
+            <td><a href="{% url 'detail_collaborateur' collaborateur.id %}">{{ collaborateur.get_role_display }}</a></td>
+            <td><a href="{% url 'detail_collaborateur' collaborateur.id %}">{{ collaborateur.tarif_horaire }} €/h</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Aucun collaborateur trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

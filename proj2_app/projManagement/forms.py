@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from .models import Client, Mission, Journal, Ligne, Prestation, Facture
+from .models import Client, Mission, Journal, Ligne, Prestation, Facture,Collaborateur,FeuilleDeTemps,LigneDeFeuilleDeTemps
 
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ['nom', 'prenom', 'email', 'telephone', 'adresse', 'ville', 'code_postal', 'pays']
-
+class CollaborateurForm(forms.ModelForm):
+    class Meta:
+        model = Collaborateur
+        fields = ['nom', 'prenom', 'email', 'role', 'tarif_horaire']
 class MissionForm(forms.ModelForm):
     class Meta:
         model = Mission
@@ -16,6 +19,13 @@ class MissionForm(forms.ModelForm):
            'start_date': forms.DateInput(attrs={'type': 'date'}),
            'end_date': forms.DateInput(attrs={'type': 'date'}),
        }
+class FeuilleDeTempsForm(forms.ModelForm):
+    class Meta:
+        model = FeuilleDeTemps
+        fields = ['mission', 'collaborateur', 'date_creation']
+        widgets = {
+            'date_creation': forms.DateInput(attrs={'type': 'date'}),
+        }
 class JournalForm(forms.ModelForm):
     
     class Meta:

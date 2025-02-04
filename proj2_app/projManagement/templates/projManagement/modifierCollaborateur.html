@@ -1,0 +1,17 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Modifier le Collaborateur</h1>
+
+<!-- Formulaire de modification -->
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    <table>
+    <button type="submit" class="btn">Enregistrer</button>
+</form>
+
+<!-- Lien pour revenir à la page de détail -->
+<a href="{% url 'detail_collaborateur' collaborateur.id %}" class="btn">Annuler</a>
+{% endblock %}

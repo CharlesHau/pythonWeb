@@ -1,6 +1,38 @@
 from django.db import models
 from django.utils.timezone import now
 
+
+
+class Collaborateur(models.Model):
+    class Role(models.TextChoices):
+        COMPTABLE  = 'COMPTABLE', 'Comptable'
+        DIRECTEUR  = 'RAF', 'Responsable administratif et financier'
+        ASSOCIE  = 'ASSOCIE', 'Associé'
+
+    nom = models.CharField(max_length=100)
+    prenom = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    role = models.CharField(max_length=10, choices=Role.choices)
+    tarif_horaire = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.prenom} {self.nom}"
+class FeuilleDeTemps(models.Model):
+    mission = models.ForeignKey('Mission', on_delete=models.CASCADE, related_name='feuilles_de_temps')
+    collaborateur = models.ForeignKey(Collaborateur, on_delete=models.CASCADE, related_name='feuilles_de_temps')
+    date_creation = models.DateField(default=now, editable=True)
+
+    def __str__(self):
+        return f"Feuille de temps de {self.collaborateur} pour la mission {self.mission}"
+    
+class LigneDeFeuilleDeTemps(models.Model):
+    feuille_de_temps = models.ForeignKey(FeuilleDeTemps, on_delete=models.CASCADE, related_name='lignes')
+    date = models.DateField()
+    heures_travaillees = models.DecimalField(max_digits=5, decimal_places=2)
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.heures_travaillees} heures le {self.date} - {self.description}"
 class Client(models.Model):
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)

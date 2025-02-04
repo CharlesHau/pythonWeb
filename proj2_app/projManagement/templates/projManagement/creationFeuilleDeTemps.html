@@ -1,0 +1,17 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Créer une nouvelle feuille de temps</h1>
+
+<!-- Formulaire de création -->
+<form method="POST">
+    {% csrf_token %} 
+    <table> 
+        {{ form.as_table }}
+    </table>    
+    <button type="submit" class="btn">Créer</button>
+</form>
+
+<!-- Lien pour revenir à la liste des feuilles de temps -->
+<a href="{% url 'feuilles_de_temps' %}" class="btn">Retour à la liste</a>
+{% endblock %}

@@ -34,5 +34,11 @@ urlpatterns = [
     path('lignes/<int:id>/', views.detail_ligne, name='detail_ligne'),
     path('lignes/<int:id>/modifier/', views.modifier_ligne, name='modifier_ligne'),
     path('missions/reporting/', views.reporting_mission, name='reporting_mission'),
+    path('collaborateurs/', views.collaborateurs, name='collaborateurs'),
+    path('collaborateurs/creer/', views.creer_collaborateur, name='creer_collaborateur'),
+    path('collaborateurs/<int:id>/', views.detail_collaborateur, name='detail_collaborateur'),
+    path('collaborateurs/<int:id>/modifier/', views.modifier_collaborateur, name='modifier_collaborateur'),
+    path('feuilles-de-temps/', views.feuilles_de_temps, name='feuilles_de_temps'),
+    path('feuilles-de-temps/creer/', views.creer_feuille_de_temps, name='creer_feuille_de_temps'),
 
 ]

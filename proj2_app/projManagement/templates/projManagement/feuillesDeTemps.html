@@ -1,0 +1,38 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Liste des Feuilles de Temps</h1>
+
+
+<form method="GET" action="">
+    <input type="text" name="q" placeholder="Rechercher une feuille de temps..." value="{{ request.GET.q }}">
+    <button type="submit" class="btn">Rechercher</button>
+</form>
+
+
+<a href="{% url 'creer_feuille_de_temps' %}" class="btn">Créer une nouvelle feuille de temps</a>
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Mission</th>
+            <th>Collaborateur</th>
+            <th>Date de création</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for feuille in feuilles %}
+        <tr>
+            <td><a href="#">{{ feuille.mission.title }}</a></td>
+            <td><a href="#">{{ feuille.collaborateur.prenom }} {{ feuille.collaborateur.nom }}</a></td>
+            <td><a href="#">{{ feuille.date_creation }}</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucune feuille de temps trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
