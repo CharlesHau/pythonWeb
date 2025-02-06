@@ -11,6 +11,7 @@ urlpatterns = [
     path('clients/<int:id>/', views.detail_client, name='detail_client'),
     path('clients/creer/', views.creer_client, name='creer_client'),
     path('clients/<int:id>/modifier/', views.modifier_client, name='modifier_client'),
+    path('clients/<int:id>/supprimer/', views.supprimer_client, name='supprimer_client'),
     path('missions/', views.missions, name='missions'),
     path('missionsEnCours/', views.missions_en_cours, name='missions_en_cours'),
     path('missionsEnAttente/', views.missions_en_attente, name='missions_en_attente'),
@@ -38,7 +39,10 @@ urlpatterns = [
     path('collaborateurs/creer/', views.creer_collaborateur, name='creer_collaborateur'),
     path('collaborateurs/<int:id>/', views.detail_collaborateur, name='detail_collaborateur'),
     path('collaborateurs/<int:id>/modifier/', views.modifier_collaborateur, name='modifier_collaborateur'),
+    path('collaborateurs/<int:id>/supprimer/', views.supprimer_collaborateur, name='supprimer_collaborateur'),
     path('feuilles-de-temps/', views.feuilles_de_temps, name='feuilles_de_temps'),
     path('feuilles-de-temps/creer/', views.creer_feuille_de_temps, name='creer_feuille_de_temps'),
+    path('feuiiles-de-temps/<int:id>/' ,views.detail_feuille_de_temps, name ='detail_feuille_de_temps'),
+    path('feuilles-de-temps/<int:id>/ajouter_ligne_feuille_de_temps/', views.ajouter_ligne_feuille_de_temps, name='ajouter_ligne_feuille_de_temps'),
 
 ]

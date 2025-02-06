@@ -39,6 +39,14 @@ class LigneForm(forms.ModelForm):
         widgets = {
            'date': forms.DateInput(attrs={'type': 'date'}),
        }
+        
+class LigneFeuilleDeTempsForm(forms.ModelForm):
+    class Meta:
+        model = LigneDeFeuilleDeTemps
+        fields = ['date', 'description', 'heures_travaillees' ]
+        widgets = {
+           'date': forms.DateInput(attrs={'type': 'date'}),
+       }
 
 class PrestationForm(forms.ModelForm):
     class Meta:

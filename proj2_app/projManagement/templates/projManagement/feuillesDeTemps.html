@@ -24,9 +24,9 @@
     <tbody>
         {% for feuille in feuilles %}
         <tr>
-            <td><a href="#">{{ feuille.mission.title }}</a></td>
-            <td><a href="#">{{ feuille.collaborateur.prenom }} {{ feuille.collaborateur.nom }}</a></td>
-            <td><a href="#">{{ feuille.date_creation }}</a></td>
+            <td><a href="{% url 'detail_feuille_de_temps' feuille.id %}">{{ feuille.mission.title }}</a></td>
+            <td><a href="{% url 'detail_feuille_de_temps' feuille.id %}">{{ feuille.collaborateur.prenom }} {{ feuille.collaborateur.nom }}</a></td>
+            <td><a href="{% url 'detail_feuille_de_temps' feuille.id %}">{{ feuille.date_creation }}</a></td>
         </tr>
         {% empty %}
         <tr>
@@ -35,4 +35,5 @@
         {% endfor %}
     </tbody>
 </table>
+
 {% endblock %}

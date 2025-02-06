@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Client, Mission, Journal, Facture, Prestation, Ligne, Collaborateur, FeuilleDeTemps, LigneDeFeuilleDeTemps
-from .forms import ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm
+from .forms import ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm,LigneFeuilleDeTempsForm
 from django.urls import reverse
 from django.utils.timezone import now
 from django.db.models import Sum,  Q
@@ -48,6 +48,63 @@ def creer_client(request):
         formulaire = ClientForm()
     return render(request, 'projManagement/creationClient.html', {'form': formulaire})
 
+
+def supprimer_client(request, id):
+    client = Client.objects.filter(id=id).first()
+    
+    missionsDuClient = Mission.objects.filter(client=client)
+    if missionsDuClient.exists():
+        return HttpResponseRedirect(reverse('clients'))
+    client.delete()
+    return HttpResponseRedirect(reverse('clients'))
+
+def supprimer_mission(request, id):
+    mission = Mission.objects.filter(id=id).first()
+    
+    journauxDeMission = Journal.objects.filter(mission=mission)
+    if journauxDeMission.exists():
+        return HttpResponseRedirect(reverse('missions'))
+    mission.delete()
+    return HttpResponseRedirect(reverse('missions'))
+def supprimer_journal(request, id):
+    journal = Journal.objects.filter(id=id).first()
+    facturesDuJournal = Facture.objects.filter(journal=journal)
+    lignesDuJournal = Ligne.objects.filter(journal=journal)
+    if facturesDuJournal.exists() or lignesDuJournal.exists():
+        return HttpResponseRedirect(reverse('journaux'))
+    journal.delete()
+    return HttpResponseRedirect(reverse('journaux'))
+    
+def supprimer_facture(request, id):
+    facture = Facture.objects.filter(id=id).first()
+    # j'ai abandonné l'idée de faire un modèle Paiement
+    # donc il est possible de supprimer une facture sans contrainte
+    # sinon il aurait fallu tenir compte du paiement
+    facture.delete()
+    return HttpResponseRedirect(reverse('factures'))
+def supprimer_ligne(request, id):
+    ligne = Ligne.objects.filter(id=id).first()
+    journal = ligne.journal
+    # aucune contrainte de suppression sur les lignes
+    # on aurait pu imaginer que si un journal est validé qu'il n'est pas possible de le supprimer
+    # ni de supprimer ses lignes
+    ligne.delete()
+    return render(request, 'projManagement/detailJournal.html', {'journal':journal})
+def supprimer_ligne_de_feuille_de_temps(request, id):
+    ligneFDT = LigneDeFeuilleDeTemps.objects.filter(id=id).first()
+    feuille = ligneFDT.feuille_de_temps
+    ligneFDT.delete()
+    return render(request, 'projManagement/detialFeuilleDeTemps.html', {'feuille':feuille})
+    
+def supprimer_feuille_de_temps(request, id):
+    feuille = FeuilleDeTemps.objects.filter(id=id).first()
+    
+    lignesDeFeuille = LigneDeFeuilleDeTemps.objects.filter(feuille_de_temps=feuille)
+    if lignesDeFeuille.exists():
+        return HttpResponseRedirect(reverse('feuillesDeTemps'))
+    lignesDeFeuille.delete()
+    return HttpResponseRedirect(reverse('feuillesDeTemps'))
+
 def detail_client(request, id):
     client = Client.objects.filter(id=id).first()
     return render(request, 'projManagement/detailClient.html', {'client': client})
@@ -64,14 +121,7 @@ def modifier_client(request, id):
     return render(request, 'projManagement/modifierClient.html', {'form': formulaire, 'client': client})
 
 
-def supprimer_client(request,id):
-    client = Client.objects.filter(id=id).first()
-    missionsDuClient = Mission.objects.filter(client=client)
-    
-    if missionsDuClient.exists():
-        return render(request, 'projManagement/detailClient.html', {'client': client})
-    client.delete()
-    clients(request)
+
 
 
 
@@ -459,6 +509,16 @@ def creer_collaborateur(request):
     else:
         formulaire = CollaborateurForm()
     return render(request, 'projManagement/creationCollaborateur.html', {'form': formulaire})
+
+def supprimer_collaborateur(request, id):
+    collaborateur = Collaborateur.objects.filter(id=id).first()
+    feuillesDuCollaborateur = FeuilleDeTemps.objects.filter(collaborateur=collaborateur)
+    
+    if feuillesDuCollaborateur.exists():
+        return HttpResponseRedirect(reverse('collaborateurs'))
+    
+    collaborateur.delete()
+    return HttpResponseRedirect(reverse('collaborateurs'))
 def detail_collaborateur(request, id):
     
     collaborateur = Collaborateur.objects.filter(id=id).first()  
@@ -500,7 +560,9 @@ def feuilles_de_temps(request):
         )
 
     return render(request, 'projManagement/feuillesDeTemps.html', {'feuilles': feuilles_list, 'query': query})
-
+def detail_feuille_de_temps(request, id):
+    feuille = FeuilleDeTemps.objects.filter(id=id).first()
+    return render (request,'projManagement/detialFeuilleDeTemps.html', {'feuille' : feuille})
 def creer_feuille_de_temps(request):
     """
     Vue pour créer une nouvelle feuille de temps.
@@ -514,3 +576,32 @@ def creer_feuille_de_temps(request):
         formulaire = FeuilleDeTempsForm()
 
     return render(request, 'projManagement/creationFeuilleDeTemps.html', {'form': formulaire})
+
+def ajouter_ligne_feuille_de_temps(request, id):
+    feuille = FeuilleDeTemps.objects.filter(id=id).first()
+    
+    if request.method == 'POST':
+        formulaire = LigneFeuilleDeTempsForm(request.POST)
+        if formulaire.is_valid():
+            ligneFDT = formulaire.save(commit=False)
+            
+            # Calculer le montant basé sur les heures travaillées et le tarif horaire
+            montant = ligneFDT.heures_travaillees * feuille.collaborateur.tarif_horaire
+            
+            # Associer le montant à la ligne de feuille de temps
+            ligneFDT.montant = montant  # Sauvegarder le montant calculé
+            
+            # Associer la feuille de temps au modèle LigneDeFeuilleDeTemps
+            ligneFDT.feuille_de_temps = feuille
+            
+            # Sauvegarder la ligne de feuille de temps
+            ligneFDT.save()
+            
+            # Rediriger l'utilisateur vers la page de détail de la feuille de temps
+            return HttpResponseRedirect(reverse('detail_feuille_de_temps', args=[id]))
+    else:
+        # Si la méthode est GET, créer un formulaire vide
+        formulaire = LigneFeuilleDeTempsForm()
+
+    # Rendre la page avec le formulaire et la feuille de temps
+    return render(request, 'projManagement/ajouterLigneFeuilleDeTemps.html', {'form': formulaire, 'feuille': feuille})

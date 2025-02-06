@@ -62,5 +62,17 @@
 
 <!-- Actions -->
 <a href="{% url 'modifier_collaborateur' collaborateur.id %}" class="btn">Modifier le collaborateur</a>
+
 <a href="{% url 'collaborateurs' %}" class="btn">Retour à la liste des collaborateurs</a>
+
+
+                <dialog id="myDialog">
+            <a href="{% url 'supprimer_collaborateur' collaborateur.id %}" class="btn">Supprimer le collaborateur</a>
+            <button onclick="document.getElementById('myDialog').close()" class="btn">Fermer</button>
+            <br>
+            <h2>Attention ! Un collaborateur ne peut pas être supprimé si des feuilles de temps lui sont rattachées.</h2>
+            <br>
+        </dialog>
+<button onclick="document.getElementById('myDialog').showModal()" class="btn">Supprimer le collaborateur</button>
+
 {% endblock %}

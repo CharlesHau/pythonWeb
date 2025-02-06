@@ -1,0 +1,54 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails de la Feuille de Temps</h1>
+
+<!-- Informations de la feuille de temps -->
+<table border="1">
+    <tr>
+        <th>Mission</th>
+        <td>{{ feuille.mission.title }}</td>
+    </tr>
+    <tr>
+        <th>Collaborateur</th>
+        <td>{{ feuille.collaborateur.prenom }} {{ feuille.collaborateur.nom }}</td>
+    </tr>
+    <tr>
+        <th>Date de Création</th>
+        <td>{{ feuille.date_creation }}</td>
+    </tr>
+</table>
+
+<!-- Lignes de temps associées -->
+<h2>Lignes de Temps associées</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Heures travaillées</th>
+            <th>Description</th>
+            <th>montant</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ligne in feuille.lignes.all %}
+        <tr>
+            <td>{{ ligne.date }}</td>
+            <td>{{ ligne.heures_travaillees }} heures</td>
+            <td>{{ ligne.description }}</td>
+            <td>{{ ligne.montant|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Aucune ligne de temps associée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Actions -->
+
+<a href="{% url 'ajouter_ligne_feuille_de_temps' feuille.id %}" class="btn">Ajouter une ligne</a>
+
+<a href="{% url 'feuilles_de_temps' %}" class="btn">Retour à la liste des feuilles de temps</a>
+{% endblock %}

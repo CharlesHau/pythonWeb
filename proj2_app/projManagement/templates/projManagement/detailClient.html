@@ -52,4 +52,12 @@
 
 <a href="{% url 'clients' %}" class="btn">Retour à la liste des clients</a>
 <a href="{% url 'modifier_client' client.id %}" class="btn">Modifier le client</a>
+    <dialog id="myDialog">
+        <a href="{% url 'supprimer_client' client.id %}" class="btn">Supprimer le collaborateur</a>
+        <button onclick="document.getElementById('myDialog').close()" class="btn">Fermer</button>
+        <br>
+        <h2>Attention ! Un client ne peut pas être supprimé si des missions lui sont rattachées.</h2>
+        <br>
+    </dialog>
+<button onclick="document.getElementById('myDialog').showModal()" class="btn">Supprimer le client</button>
 {% endblock %}

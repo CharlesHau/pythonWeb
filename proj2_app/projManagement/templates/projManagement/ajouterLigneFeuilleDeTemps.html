@@ -1,0 +1,22 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Ajouter une ligne à la feuille de temps</h1>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+            {% if field.name != "feuille" %}
+                <tr>
+                    <th>{{ field.label_tag }}</th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <input type="submit" value="Ajouter la ligne" class="btn">
+</form>
+
+<a href="{% url 'detail_feuille_de_temps' feuille.id %}" class="btn">Retour à la feuille de temps</a>
+{% endblock %}

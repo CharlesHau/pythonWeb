@@ -152,7 +152,14 @@ tr:hover {
   transition: background 0.3s ease;
   margin: 0.5rem 0;
 }
-
+.button-form{
+    background-color: white;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+}
 .btn:hover {
   background: var(--primary-hover);
 }
@@ -168,4 +175,11 @@ tr:hover {
     margin: 1rem;
     padding: 1rem;
   }
+}
+dialog {
+position:fixed;
+top: 50%;
+left:50%;
+transform: translate(-50%,-50%);
+
 }

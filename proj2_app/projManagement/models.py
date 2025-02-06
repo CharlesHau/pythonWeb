@@ -30,7 +30,8 @@ class LigneDeFeuilleDeTemps(models.Model):
     date = models.DateField()
     heures_travaillees = models.DecimalField(max_digits=5, decimal_places=2)
     description = models.TextField()
-
+    montant = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    
     def __str__(self):
         return f"{self.heures_travaillees} heures le {self.date} - {self.description}"
 class Client(models.Model):
