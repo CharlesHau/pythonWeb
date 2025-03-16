@@ -1,0 +1,73 @@
+INFO 2025-03-16 23:27:38,738 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:28:05,448 middleware Initialisation du middleware d'authentification
+DEBUG 2025-03-16 23:28:14,129 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:28:27,775 middleware Tentative d'accès à /home/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:28:27,792 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:30:08,782 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:30:29,224 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:33:17,077 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:33:18,662 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:33:19,609 middleware URL exemptée de l'authentification: /accounts/login/
+INFO 2025-03-16 23:33:57,676 middleware Initialisation du middleware d'authentification
+DEBUG 2025-03-16 23:33:59,221 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:35:23,861 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:35:42,459 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:35:43,135 middleware URL exemptée de l'authentification: /accounts/login/
+INFO 2025-03-16 23:36:20,933 middleware Initialisation du middleware d'authentification
+DEBUG 2025-03-16 23:36:22,053 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:22,800 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:24,386 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:24,889 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:24,993 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:25,022 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:25,040 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:25,075 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:25,092 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:25,125 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:25,158 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:36:25,253 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:37:29,003 middleware URL exemptée de l'authentification: /accounts/login/
+INFO 2025-03-16 23:39:02,709 middleware Initialisation du middleware d'authentification
+DEBUG 2025-03-16 23:39:23,188 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:39:28,316 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:39:29,078 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:39:29,285 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:39:42,042 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:40:42,830 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:40:43,332 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:40:43,533 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:41:16,696 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:43:24,148 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:43:29,260 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:43:51,229 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:43:58,164 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:44:01,838 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:44:16,818 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:44:32,792 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:44:46,774 middleware URL exemptée de l'authentification: /accounts/login/
+DEBUG 2025-03-16 23:45:12,125 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:12,905 middleware Tentative d'accès à /accounts/profile/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:12,914 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:18,697 middleware Tentative d'accès à /home/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:18,707 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:20,216 middleware Tentative d'accès à /clients/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:20,221 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:21,128 middleware Tentative d'accès à /missions/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:21,143 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:22,011 middleware Tentative d'accès à /journaux/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:22,023 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:22,824 middleware Tentative d'accès à /factures/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:22,837 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:23,732 middleware Tentative d'accès à /prestations/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:23,745 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:24,578 middleware Tentative d'accès à /collaborateurs/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:24,590 middleware URL exemptée de l'authentification: /accounts/login/
+WARNING 2025-03-16 23:45:44,829 middleware Tentative d'accès à /home/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:45:44,843 middleware URL exemptée de l'authentification: /accounts/login/
+INFO 2025-03-16 23:46:31,947 middleware Initialisation du middleware d'authentification
+WARNING 2025-03-16 23:46:32,095 middleware Tentative d'accès à /accounts/login/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:46:32,104 middleware URL exemptée de l'authentification: /login/
+INFO 2025-03-16 23:46:49,315 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:47:58,413 middleware Initialisation du middleware d'authentification
+WARNING 2025-03-16 23:47:58,934 middleware Tentative d'accès à /login/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:47:58,942 middleware URL exemptée de l'authentification: /accounts/login/

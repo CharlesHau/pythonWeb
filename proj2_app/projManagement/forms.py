@@ -3,6 +3,10 @@
 from django import forms
 from .models import Client, Mission, Journal, Ligne, Prestation, Facture,Collaborateur,FeuilleDeTemps,LigneDeFeuilleDeTemps
 
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(label='Email')
+    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput)
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client

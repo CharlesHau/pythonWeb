@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Client, Mission, Journal, Facture, Prestation, Ligne, Collaborateur, FeuilleDeTemps, LigneDeFeuilleDeTemps
-from .forms import ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm,LigneFeuilleDeTempsForm
+from .forms import LoginForm, ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm,LigneFeuilleDeTempsForm
 from django.urls import reverse
 from django.utils.timezone import now
 from django.db.models import Sum,  Q
+from .decorators import login_required, comptable_required, raf_required, associe_required
+import logging
+#from django.contrib.auth.hashers import check_password
 
 # Create your views here.
 # à supprimer
@@ -12,6 +15,49 @@ def index(request):
     return HttpResponse('<H1> hello all</h1>')
 
 
+
+logger = logging.getLogger(__name__)
+
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            
+            print(f"Tentative de connexion avec email: {email}")
+            
+            try:
+                collaborateur = Collaborateur.objects.get(email=email)
+                print(f"Email trouvé en base: {email}")
+                
+                if collaborateur.check_password(password):
+                    print(f"Authentification réussie pour: {email}")
+                    # Stocker l'ID du collaborateur dans la session
+                    request.session['collaborateur_id'] = collaborateur.id
+                    return redirect('home')
+                else:
+                    print(f"Mot de passe incorrect pour: {email}")
+                    form.add_error('password', 'Mot de passe incorrect')
+            except Collaborateur.DoesNotExist:
+                print(f"Email non trouvé en base: {email}")
+                form.add_error('email', 'Email non trouvé')
+    else:
+        form = LoginForm()
+    
+    return render(request, 'projManagement/login.html', {'form': form})
+def logout_view(request):
+    # Supprimer l'ID du collaborateur de la session
+    if 'collaborateur_id' in request.session:
+        del request.session['collaborateur_id']
+    return redirect('login')
+
+def access_denied(request):
+    return render(request, 'projManagement/access_denied.html')
+
+@login_required
 def home(request):
     missions_actives = Mission.objects.filter(statut='en cours').count()
     factures_en_attente = Facture.objects.filter(montant_total__gt=0).count()

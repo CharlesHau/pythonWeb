@@ -1,21 +1,23 @@
-<!-- templates/registration/login.html -->
-
+{% extends 'projManagement/overlay.html' %}
 
 {% block content %}
-<h2>Login</h2>
+<h1>Connexion</h1>
+
+{% if form.non_field_errors %}
+<div class="error-message">
+    {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
 <form method="post">
     {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div>
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        {{ form.username.errors }}
+  
+    <div class="form-group">
+      {{ form.as_table }}
     </div>
-    <div>
-        {{ form.password.label_tag }}
-        {{ form.password }}
-        {{ form.password.errors }}
-    </div>
-    <button type="submit">Login</button>
+    
+    <button type="submit" class="btn">Se connecter</button>
 </form>
 {% endblock %}

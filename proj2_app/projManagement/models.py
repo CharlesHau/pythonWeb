@@ -12,6 +12,7 @@ class Collaborateur(models.Model):
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)
     role = models.CharField(max_length=10, choices=Role.choices)
     tarif_horaire = models.DecimalField(max_digits=10, decimal_places=2)
 

@@ -44,5 +44,6 @@ urlpatterns = [
     path('feuilles-de-temps/creer/', views.creer_feuille_de_temps, name='creer_feuille_de_temps'),
     path('feuiiles-de-temps/<int:id>/' ,views.detail_feuille_de_temps, name ='detail_feuille_de_temps'),
     path('feuilles-de-temps/<int:id>/ajouter_ligne_feuille_de_temps/', views.ajouter_ligne_feuille_de_temps, name='ajouter_ligne_feuille_de_temps'),
+    
 
 ]
