@@ -102,3 +102,25 @@ DEBUG 2025-03-17 00:00:38,552 middleware Chemin exempté de l'authentification: /
 WARNING 2025-03-17 00:00:58,370 decorators Accès refusé à /home/: utilisateur non connecté
 WARNING 2025-03-17 00:01:06,458 decorators Accès refusé à /home/: utilisateur non connecté
 WARNING 2025-03-17 00:01:08,988 decorators Accès refusé à /home/: utilisateur non connecté
+WARNING 2025-03-17 00:02:11,018 decorators Accès refusé à /home/: utilisateur non connecté
+INFO 2025-03-17 00:02:31,929 views Tentative de connexion avec email: test@gmail.com
+INFO 2025-03-17 00:02:31,931 views Email trouvé en base: test@gmail.com
+WARNING 2025-03-17 00:02:32,632 views Mot de passe incorrect pour: test@gmail.com
+INFO 2025-03-17 00:03:08,166 views Tentative de connexion avec email: test@gmail.com
+INFO 2025-03-17 00:03:08,168 views Email trouvé en base: test@gmail.com
+WARNING 2025-03-17 00:03:08,900 views Mot de passe incorrect pour: test@gmail.com
+INFO 2025-03-17 00:03:13,016 views Tentative de connexion avec email: test@gmail.com
+INFO 2025-03-17 00:03:13,017 views Email trouvé en base: test@gmail.com
+WARNING 2025-03-17 00:03:13,738 views Mot de passe incorrect pour: test@gmail.com
+INFO 2025-03-17 00:03:55,765 views Tentative de connexion avec email: testVerif@gmail.com
+INFO 2025-03-17 00:03:55,765 views Email trouvé en base: testVerif@gmail.com
+INFO 2025-03-17 00:03:56,484 views Authentification réussie pour: testVerif@gmail.com
+DEBUG 2025-03-17 00:03:56,508 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 00:05:41,220 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 00:05:41,276 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 00:05:43,949 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 00:05:43,989 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 00:05:45,113 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 00:05:45,157 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 00:05:56,346 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 00:05:56,410 decorators Accès autorisé à /home/: utilisateur connecté

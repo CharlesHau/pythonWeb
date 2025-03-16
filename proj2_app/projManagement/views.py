@@ -512,7 +512,7 @@ def ajouter_ligne(request, id):
     return render(request, 'projManagement/ajouterLigne.html', {'form': formulaire, 'journal': journal})
 
 
-
+@comptable_required
 def prestations(request):
     query = request.GET.get('q','')
     prestations_list = Prestation.objects.all()
