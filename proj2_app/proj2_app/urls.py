@@ -45,5 +45,7 @@ urlpatterns = [
     path('feuiiles-de-temps/<int:id>/' ,views.detail_feuille_de_temps, name ='detail_feuille_de_temps'),
     path('feuilles-de-temps/<int:id>/ajouter_ligne_feuille_de_temps/', views.ajouter_ligne_feuille_de_temps, name='ajouter_ligne_feuille_de_temps'),
     
-
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('access-denied/', views.access_denied, name='access_denied'),
 ]

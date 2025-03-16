@@ -71,3 +71,34 @@ INFO 2025-03-16 23:46:49,315 middleware Initialisation du middleware d'authentif
 INFO 2025-03-16 23:47:58,413 middleware Initialisation du middleware d'authentification
 WARNING 2025-03-16 23:47:58,934 middleware Tentative d'accès à /login/ sans authentification - Redirection vers login
 DEBUG 2025-03-16 23:47:58,942 middleware URL exemptée de l'authentification: /accounts/login/
+INFO 2025-03-16 23:54:42,854 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:54:55,853 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:55:09,219 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:55:44,317 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:56:09,955 middleware Initialisation du middleware de vérification des rôles
+INFO 2025-03-16 23:56:09,956 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:56:25,124 middleware Initialisation du middleware de vérification des rôles
+INFO 2025-03-16 23:56:25,124 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:57:31,411 middleware Initialisation du middleware de vérification des rôles
+INFO 2025-03-16 23:57:31,411 middleware Initialisation du middleware d'authentification
+INFO 2025-03-16 23:58:38,315 middleware Initialisation du middleware de vérification des rôles
+INFO 2025-03-16 23:58:38,316 middleware Initialisation du middleware d'authentification
+WARNING 2025-03-16 23:58:43,527 middleware Tentative d'accès à /accounts/login/ sans authentification - Redirection vers login
+DEBUG 2025-03-16 23:58:43,556 middleware Chemin exempté de l'authentification: /login/
+WARNING 2025-03-16 23:58:43,738 middleware Tentative d'accès à /favicon.ico sans authentification - Redirection vers login
+INFO 2025-03-16 23:59:57,552 middleware Initialisation du middleware de vérification des rôles
+INFO 2025-03-16 23:59:57,552 middleware Initialisation du middleware d'authentification
+DEBUG 2025-03-17 00:00:00,486 middleware Chemin exempté de l'authentification: /login/
+WARNING 2025-03-17 00:00:33,573 middleware Tentative d'accès à /home/ sans authentification - Redirection vers login
+DEBUG 2025-03-17 00:00:33,604 middleware Chemin exempté de l'authentification: /login/
+WARNING 2025-03-17 00:00:33,699 middleware Tentative d'accès à /favicon.ico sans authentification - Redirection vers login
+WARNING 2025-03-17 00:00:35,074 middleware Tentative d'accès à /clients/ sans authentification - Redirection vers login
+DEBUG 2025-03-17 00:00:35,093 middleware Chemin exempté de l'authentification: /login/
+WARNING 2025-03-17 00:00:35,218 middleware Tentative d'accès à /favicon.ico sans authentification - Redirection vers login
+WARNING 2025-03-17 00:00:36,642 middleware Tentative d'accès à /home/ sans authentification - Redirection vers login
+DEBUG 2025-03-17 00:00:36,658 middleware Chemin exempté de l'authentification: /login/
+WARNING 2025-03-17 00:00:38,539 middleware Tentative d'accès à /journaux/ sans authentification - Redirection vers login
+DEBUG 2025-03-17 00:00:38,552 middleware Chemin exempté de l'authentification: /login/
+WARNING 2025-03-17 00:00:58,370 decorators Accès refusé à /home/: utilisateur non connecté
+WARNING 2025-03-17 00:01:06,458 decorators Accès refusé à /home/: utilisateur non connecté
+WARNING 2025-03-17 00:01:08,988 decorators Accès refusé à /home/: utilisateur non connecté

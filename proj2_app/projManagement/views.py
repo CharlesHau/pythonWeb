@@ -21,42 +21,62 @@ logger = logging.getLogger(__name__)
 
 
 def login_view(request):
+    """
+    Vue pour gérer la connexion des utilisateurs
+    """
+    # Si l'utilisateur est déjà connecté, le rediriger vers la page d'accueil
+    if 'collaborateur_id' in request.session:
+        return redirect('home')
+        
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             
-            print(f"Tentative de connexion avec email: {email}")
+            logger.info(f"Tentative de connexion avec email: {email}")
             
             try:
                 collaborateur = Collaborateur.objects.get(email=email)
-                print(f"Email trouvé en base: {email}")
+                logger.info(f"Email trouvé en base: {email}")
                 
                 if collaborateur.check_password(password):
-                    print(f"Authentification réussie pour: {email}")
+                    logger.info(f"Authentification réussie pour: {email}")
                     # Stocker l'ID du collaborateur dans la session
                     request.session['collaborateur_id'] = collaborateur.id
+                    
+                    # Stocker le rôle pour faciliter les contrôles d'accès
+                    request.session['collaborateur_role'] = collaborateur.role
+                    
+                    # Optionnel : définir une date d'expiration pour la session
+                    request.session.set_expiry(86400)  # 24 heures
+                    
                     return redirect('home')
                 else:
-                    print(f"Mot de passe incorrect pour: {email}")
+                    logger.warning(f"Mot de passe incorrect pour: {email}")
                     form.add_error('password', 'Mot de passe incorrect')
             except Collaborateur.DoesNotExist:
-                print(f"Email non trouvé en base: {email}")
+                logger.warning(f"Email non trouvé en base: {email}")
                 form.add_error('email', 'Email non trouvé')
     else:
         form = LoginForm()
     
-    return render(request, 'projManagement/login.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form})
+
 def logout_view(request):
-    # Supprimer l'ID du collaborateur de la session
-    if 'collaborateur_id' in request.session:
-        del request.session['collaborateur_id']
+    """
+    Vue pour gérer la déconnexion des utilisateurs
+    """
+    # Supprimer toutes les variables de session
+    request.session.flush()
+    logger.info("Utilisateur déconnecté")
     return redirect('login')
 
 def access_denied(request):
-    return render(request, 'projManagement/access_denied.html')
-
+    """
+    Vue pour afficher un message d'accès refusé
+    """
+    return render(request, 'registration/access_denied.html')
 @login_required
 def home(request):
     missions_actives = Mission.objects.filter(statut='en cours').count()

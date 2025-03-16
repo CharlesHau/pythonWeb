@@ -1,0 +1,40 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<div class="access-denied">
+    <h1>Accès refusé</h1>
+    
+    <div class="error-message">
+        <p>Vous n'avez pas les permissions nécessaires pour accéder à cette page.</p>
+        <p>Votre rôle actuel ne vous permet pas d'effectuer cette action.</p>
+    </div>
+    
+    <div class="actions">
+        <a href="{% url 'home' %}" class="btn">Retour à l'accueil</a>
+        <a href="{% url 'logout' %}" class="btn">Se déconnecter</a>
+    </div>
+</div>
+
+<style>
+    .access-denied {
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .error-message {
+        background-color: #ffeeee;
+        border-left: 4px solid #cc0000;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        text-align: left;
+    }
+    
+    .actions {
+        margin-top: 2rem;
+    }
+    
+    .actions .btn {
+        margin: 0 0.5rem;
+    }
+</style>
+{% endblock %}

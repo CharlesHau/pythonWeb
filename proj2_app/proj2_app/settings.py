@@ -49,8 +49,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # mes middleware
-    'projManagement.middleware.AuthenticationMiddleware',
-    'projManagement.middleware.RoleCheckMiddleware',
 ]
 
 ROOT_URLCONF = "proj2_app.urls"
