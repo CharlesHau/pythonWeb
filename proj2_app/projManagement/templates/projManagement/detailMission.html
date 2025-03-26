@@ -34,11 +34,11 @@
     </tr>
     <tr>
         <th>Montant facturé</th>
-        <td>{{ montant_facture|floatformat:2 }} €</td>
+        <td>{{ mission.montant_facture|floatformat:2 }} €</td>
     </tr>
     <tr>
         <th>Coût des prestations</th>
-        <td>{{ cout_prestations|floatformat:2 }} €</td>
+        <td>{{ mission.cout_prestations|floatformat:2 }} €</td>
     </tr>
 </table>
 
@@ -61,6 +61,27 @@
         {% empty %}
         <tr>
             <td colspan="2">Aucun journal associé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Feuilles de temps associées</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Collaborateur</th>
+            <th>Date de création</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for feuille in feuilles_de_temps %}
+        <tr>
+            <td><a href="{% url 'detail_feuille_de_temps' feuille.id %}">{{ feuille.id }}</a></td>
+            <td>{{ feuille.collaborateur.nom }} {{ feuille.collaborateur.prenom }}</td>
+            <td>{{ feuille.date_creation }}</td>
+            
         </tr>
         {% endfor %}
     </tbody>

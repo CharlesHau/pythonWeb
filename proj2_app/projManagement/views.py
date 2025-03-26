@@ -212,25 +212,6 @@ def missions(request):
             Q(client__prenom__icontains=query) |
             Q(budget__icontains=query)
         )
-
-    for mission in missions_list:
-        # Calcul du montant facturé (existant)
-        montant_facture = (
-            Facture.objects.filter(journal__mission=mission)
-            .aggregate(total=Sum("montant_total"))
-            ["total"]
-        ) or 0
-        mission.montant_facture = montant_facture
-        
-        # Calcul du coût total des prestations (nouveau)
-        cout_prestations = (
-            Ligne.objects.filter(journal__mission=mission)
-            .annotate(cout=F('quantite') * F('prestation__prix'))
-            .aggregate(total=Sum('cout'))
-            ['total']
-        ) or 0
-        mission.cout_prestations = cout_prestations
-
     return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
 @login_required
 def missions_en_cours(request):
@@ -326,27 +307,42 @@ def creer_mission(request):
 @login_required
 def detail_mission(request, id):
     mission = Mission.objects.filter(id=id).first()
-    # Calcul du montant facturé
+    
     montant_facture = (
         Facture.objects.filter(journal__mission=mission)
         .aggregate(total=Sum("montant_total"))
         ["total"]
     ) or 0
+    mission.montant_facture = montant_facture
     
-    # Calcul du coût des prestations
+    # Calcul du coût total des prestations (nouveau)
     cout_prestations = (
         Ligne.objects.filter(journal__mission=mission)
         .annotate(cout=F('quantite') * F('prestation__prix'))
         .aggregate(total=Sum('cout'))
         ['total']
     ) or 0
-    
+    mission.cout_prestations = cout_prestations
+    heures = (
+        LigneDeFeuilleDeTemps.objects.filter(feuille_de_temps__mission=mission)
+        .aggregate(total=Sum('heures_travaillees'))
+        ['total']
+    ) or 0
+    mission.total_heures = heures
+    cout_heures = (
+        LigneDeFeuilleDeTemps.objects.filter(feuille_de_temps__mission=mission)
+        .aggregate(total=Sum('montant'))
+        ['total']
+    ) or 0
+    mission.cout_heures = cout_heures
+    feuilles_de_temps = mission.feuilles_de_temps.all()
+
     context = {
         'mission': mission,
-        'montant_facture': montant_facture,
-        'cout_prestations': cout_prestations
+        'feuilles_de_temps': feuilles_de_temps
     }
-    return render(request, 'projManagement/detailMission.html', {'mission': mission})
+
+    return render(request, 'projManagement/detailMission.html', context)
 
 
 
@@ -398,6 +394,7 @@ def reporting_mission(request):
             if statut_mission:
                 missions = missions.filter(statut__icontains=statut_mission)
             
+        
             
             for mission in missions:
                 # Calcul du montant facturé (existant)
@@ -416,15 +413,24 @@ def reporting_mission(request):
                     ['total']
                 ) or 0
                 mission.cout_prestations = cout_prestations
-                
-                
-            
-            
-                
+                heures = (
+                    LigneDeFeuilleDeTemps.objects.filter(feuille_de_temps__mission=mission)
+                    .aggregate(total=Sum('heures_travaillees'))
+                    ['total']
+                ) or 0
+                mission.total_heures = heures
+                cout_heures = (
+                    LigneDeFeuilleDeTemps.objects.filter(feuille_de_temps__mission=mission)
+                    .aggregate(total=Sum('montant'))
+                    ['total']
+                ) or 0
+                mission.cout_heures = cout_heures
+
+                mission.cout_total = cout_prestations + cout_heures
+
             return render(request, 'projManagement/reportingMissionResultat.html', {
                 'missions': missions,
                 'form': form,
-                
             })
     else:
         form = RechercheMissionForm()
