@@ -1,0 +1,52 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails du paiement</h1>
+
+<table border="1">
+    <tr>
+        <th>Facture</th>
+        <td><a href="{% url 'detail_facture' paiement.facture.id %}">Facture #{{ paiement.facture.id }}</a></td>
+    </tr>
+    <tr>
+        <th>Date du paiement</th>
+        <td>{{ paiement.date_paiement }}</td>
+    </tr>
+    <tr>
+        <th>Montant</th>
+        <td>{{ paiement.montant|floatformat:2 }} €</td>
+    </tr>
+    <tr>
+        <th>Mode de paiement</th>
+        <td>{{ paiement.get_mode_paiement_display }}</td>
+    </tr>
+    {% if paiement.reference %}
+    <tr>
+        <th>Référence</th>
+        <td>{{ paiement.reference }}</td>
+    </tr>
+    {% endif %}
+    {% if paiement.commentaire %}
+    <tr>
+        <th>Commentaire</th>
+        <td>{{ paiement.commentaire }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>Date d'enregistrement</th>
+        <td>{{ paiement.date_creation }}</td>
+    </tr>
+</table>
+
+<a href="{% url 'detail_facture' paiement.facture.id %}" class="btn">Retour à la facture</a>
+
+<dialog id="myDialog">
+    <a href="{% url 'supprimer_paiement' paiement.id %}" class="btn">Confirmer la suppression</a>
+    <button onclick="document.getElementById('myDialog').close()" class="btn">Annuler</button>
+    <br>
+    <h2>Attention ! Cette action est irréversible.</h2>
+    <br>
+</dialog>
+<button onclick="document.getElementById('myDialog').showModal()" class="btn">Supprimer ce paiement</button>
+
+{% endblock %}

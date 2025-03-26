@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from .models import Client, Mission, Journal, Ligne, Prestation, Facture,Collaborateur,FeuilleDeTemps,LigneDeFeuilleDeTemps
+from .models import Client, Mission, Journal, Ligne, Prestation, Facture,Collaborateur,FeuilleDeTemps,LigneDeFeuilleDeTemps, Paiement
 
 
 class LoginForm(forms.Form):
@@ -10,7 +10,10 @@ class LoginForm(forms.Form):
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ['nom', 'prenom', 'email', 'telephone', 'adresse', 'ville', 'code_postal', 'pays']
+        fields = ['nom', 'prenom', 'email', 'telephone', 'adresse', 'ville', 'code_postal', 'pays', 'logo']
+        #aucune idée de pourquoi je peux pas enregistrer d'image
+        # pourquoi le modèle est correcte, le formulaire de saisie a le bon attribut
+        
 class CollaborateurForm(forms.ModelForm):
     class Meta:
         model = Collaborateur
@@ -91,3 +94,27 @@ class RechercheMissionForm(forms.Form):
         widgets = {
            'date': forms.DateInput(attrs={'type': 'date'}),
        }
+# Dans forms.py
+
+class PaiementForm(forms.ModelForm):
+    """Formulaire pour créer ou modifier un paiement."""
+    
+    class Meta:
+        model = Paiement
+        fields = ['date_paiement', 'montant', 'reference', 'mode_paiement', 'commentaire']
+        widgets = {
+            'date_paiement': forms.DateInput(attrs={'type': 'date'}),
+        }
+        
+    def __init__(self, *args, **kwargs):
+        # On peut passer une facture en paramètre pour préremplir le montant
+        facture = kwargs.pop('facture', None)
+        super().__init__(*args, **kwargs)
+        
+        if facture:
+            # Calculer le montant restant à payer
+            total_paye = sum(p.montant for p in facture.paiements.all())
+            montant_restant = facture.montant_total - total_paye
+            
+            # Préremplir le montant avec le reste à payer
+            self.fields['montant'].initial = montant_restant

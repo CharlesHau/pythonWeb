@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Client, Mission, Journal, Facture, Prestation, Ligne, Collaborateur, FeuilleDeTemps, LigneDeFeuilleDeTemps
-from .forms import LoginForm, ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm,LigneFeuilleDeTempsForm
+from .models import Client, Mission, Journal, Facture, Prestation, Ligne, Collaborateur, FeuilleDeTemps, LigneDeFeuilleDeTemps, Paiement
+from .forms import LoginForm, ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm,LigneFeuilleDeTempsForm, PaiementForm
 from django.urls import reverse
 from django.utils.timezone import now
-from django.db.models import Sum,  Q
+from django.db.models import Sum,  Q, F
 from .decorators import login_required, comptable_required, raf_required, associe_required
+from django.contrib import messages
 import logging
 #from django.contrib.auth.hashers import check_password
 
@@ -90,7 +91,7 @@ def home(request):
         'total_journaux': total_journaux,
     }
     return render(request, 'projManagement/home.html', context)
-
+@login_required
 def clients(request):
     query = request.GET.get('q', '')
     clients_list = Client.objects.all()
@@ -104,17 +105,22 @@ def clients(request):
         )
 
     return render(request, "projManagement/clients.html", {"clients": clients_list, "query": query})
+@login_required
 def creer_client(request):
     if request.method == 'POST':
-        formulaire = ClientForm(request.POST)
+        print("FILES:", request.FILES)  # Affiche les fichiers téléchargés
+        formulaire = ClientForm(request.POST, request.FILES)
         if formulaire.is_valid():
-            formulaire.save()
+            client = formulaire.save()
+            print("Client créé:", client.id)
+            print("Logo URL:", client.logo.url if client.logo else "Pas de logo")
             return HttpResponseRedirect(reverse('clients'))
+        else:
+            print("Erreurs du formulaire:", formulaire.errors)
     else:
         formulaire = ClientForm()
     return render(request, 'projManagement/creationClient.html', {'form': formulaire})
-
-
+@login_required
 def supprimer_client(request, id):
     client = Client.objects.filter(id=id).first()
     
@@ -123,7 +129,7 @@ def supprimer_client(request, id):
         return HttpResponseRedirect(reverse('clients'))
     client.delete()
     return HttpResponseRedirect(reverse('clients'))
-
+@login_required
 def supprimer_mission(request, id):
     mission = Mission.objects.filter(id=id).first()
     
@@ -132,6 +138,7 @@ def supprimer_mission(request, id):
         return HttpResponseRedirect(reverse('missions'))
     mission.delete()
     return HttpResponseRedirect(reverse('missions'))
+@comptable_required
 def supprimer_journal(request, id):
     journal = Journal.objects.filter(id=id).first()
     facturesDuJournal = Facture.objects.filter(journal=journal)
@@ -140,7 +147,7 @@ def supprimer_journal(request, id):
         return HttpResponseRedirect(reverse('journaux'))
     journal.delete()
     return HttpResponseRedirect(reverse('journaux'))
-    
+@raf_required    
 def supprimer_facture(request, id):
     facture = Facture.objects.filter(id=id).first()
     # j'ai abandonné l'idée de faire un modèle Paiement
@@ -148,6 +155,7 @@ def supprimer_facture(request, id):
     # sinon il aurait fallu tenir compte du paiement
     facture.delete()
     return HttpResponseRedirect(reverse('factures'))
+@comptable_required
 def supprimer_ligne(request, id):
     ligne = Ligne.objects.filter(id=id).first()
     journal = ligne.journal
@@ -156,12 +164,13 @@ def supprimer_ligne(request, id):
     # ni de supprimer ses lignes
     ligne.delete()
     return render(request, 'projManagement/detailJournal.html', {'journal':journal})
+@login_required
 def supprimer_ligne_de_feuille_de_temps(request, id):
     ligneFDT = LigneDeFeuilleDeTemps.objects.filter(id=id).first()
     feuille = ligneFDT.feuille_de_temps
     ligneFDT.delete()
-    return render(request, 'projManagement/detialFeuilleDeTemps.html', {'feuille':feuille})
-    
+    return render(request, 'projManagement/detailFeuilleDeTemps.html', {'feuille':feuille})
+@login_required    
 def supprimer_feuille_de_temps(request, id):
     feuille = FeuilleDeTemps.objects.filter(id=id).first()
     
@@ -170,11 +179,11 @@ def supprimer_feuille_de_temps(request, id):
         return HttpResponseRedirect(reverse('feuillesDeTemps'))
     lignesDeFeuille.delete()
     return HttpResponseRedirect(reverse('feuillesDeTemps'))
-
+@login_required
 def detail_client(request, id):
     client = Client.objects.filter(id=id).first()
     return render(request, 'projManagement/detailClient.html', {'client': client})
-
+@login_required
 def modifier_client(request, id):
     client = Client.objects.filter(id=id).first()
     if request.method == 'POST':
@@ -190,7 +199,7 @@ def modifier_client(request, id):
 
 
 
-
+@login_required
 def missions(request):
     query = request.GET.get('q', '')
     missions_list = Mission.objects.all()
@@ -205,17 +214,25 @@ def missions(request):
         )
 
     for mission in missions_list:
+        # Calcul du montant facturé (existant)
         montant_facture = (
             Facture.objects.filter(journal__mission=mission)
             .aggregate(total=Sum("montant_total"))
             ["total"]
         ) or 0
         mission.montant_facture = montant_facture
+        
+        # Calcul du coût total des prestations (nouveau)
+        cout_prestations = (
+            Ligne.objects.filter(journal__mission=mission)
+            .annotate(cout=F('quantite') * F('prestation__prix'))
+            .aggregate(total=Sum('cout'))
+            ['total']
+        ) or 0
+        mission.cout_prestations = cout_prestations
 
     return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
-
-
-
+@login_required
 def missions_en_cours(request):
     query = request.GET.get('q', '')
     missions_list = Mission.objects.all()
@@ -242,7 +259,7 @@ def missions_en_cours(request):
     
     
     return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
-
+@login_required
 def missions_en_attente(request):
     query = request.GET.get('q', '')
     missions_list = Mission.objects.all()
@@ -269,6 +286,7 @@ def missions_en_attente(request):
     
     
     return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
+@login_required
 def missions_fermees(request):
     query = request.GET.get('q', '')
     missions_list = Mission.objects.all()
@@ -295,7 +313,7 @@ def missions_fermees(request):
     
     
     return render(request, "projManagement/missions.html", {"missions": missions_list, "query": query})
-
+@login_required
 def creer_mission(request):
     if request.method == 'POST':
         formulaire = MissionForm(request.POST)
@@ -305,14 +323,35 @@ def creer_mission(request):
     else:
         formulaire = MissionForm()
     return render(request, 'projManagement/creationMission.html', {'form': formulaire})
+@login_required
 def detail_mission(request, id):
     mission = Mission.objects.filter(id=id).first()
+    # Calcul du montant facturé
+    montant_facture = (
+        Facture.objects.filter(journal__mission=mission)
+        .aggregate(total=Sum("montant_total"))
+        ["total"]
+    ) or 0
+    
+    # Calcul du coût des prestations
+    cout_prestations = (
+        Ligne.objects.filter(journal__mission=mission)
+        .annotate(cout=F('quantite') * F('prestation__prix'))
+        .aggregate(total=Sum('cout'))
+        ['total']
+    ) or 0
+    
+    context = {
+        'mission': mission,
+        'montant_facture': montant_facture,
+        'cout_prestations': cout_prestations
+    }
     return render(request, 'projManagement/detailMission.html', {'mission': mission})
 
 
 
 
-
+@login_required
 def modifier_mission(request, id):
     mission = Mission.objects.filter(id=id).first()
     if request.method == 'POST':
@@ -324,7 +363,7 @@ def modifier_mission(request, id):
         formulaire = MissionForm(instance=mission)
     return render(request, 'projManagement/modifierMission.html', {'form': formulaire, 'mission': mission})
 
-
+@login_required
 def reporting_mission(request):
     if request.method == 'POST':
         form = RechercheMissionForm(request.POST)
@@ -361,6 +400,7 @@ def reporting_mission(request):
             
             
             for mission in missions:
+                # Calcul du montant facturé (existant)
                 montant_facture = (
                     Facture.objects.filter(journal__mission=mission)
                     .aggregate(total=Sum("montant_total"))
@@ -368,14 +408,28 @@ def reporting_mission(request):
                 ) or 0
                 mission.montant_facture = montant_facture
                 
+                # Calcul du coût total des prestations (nouveau)
+                cout_prestations = (
+                    Ligne.objects.filter(journal__mission=mission)
+                    .annotate(cout=F('quantite') * F('prestation__prix'))
+                    .aggregate(total=Sum('cout'))
+                    ['total']
+                ) or 0
+                mission.cout_prestations = cout_prestations
+                
+                
+            
+            
+                
             return render(request, 'projManagement/reportingMissionResultat.html', {
                 'missions': missions,
                 'form': form,
+                
             })
     else:
         form = RechercheMissionForm()
     return render(request, 'projManagement/reportingMission.html', {'form': form})
-
+@comptable_required
 def journaux(request):
     query = request.GET.get('q', '')
     journaux_list = Journal.objects.all()
@@ -392,7 +446,7 @@ def journaux(request):
 
 
 
-
+@comptable_required
 def creer_journal(request):
     if request.method == 'POST':
         formulaire = JournalForm(request.POST)
@@ -402,7 +456,7 @@ def creer_journal(request):
     else:
         formulaire = JournalForm()
     return render(request, 'projManagement/creationJournal.html', {'form': formulaire})
-
+@comptable_required
 def detail_journal(request, id):
     journal = Journal.objects.filter(id=id).first()
     
@@ -410,7 +464,7 @@ def detail_journal(request, id):
     return render(request, 'projManagement/detailJournal.html', {'journal': journal, 'modifiable': modifiable})
 
 
-
+@comptable_required
 def modifier_journal(request, id):
     journal = Journal.objects.filter(id=id).first()
 
@@ -427,7 +481,7 @@ def modifier_journal(request, id):
     return render(request, 'projManagement/modifierJournal.html', {'form': formulaire, 'journal': journal})
 
 
-
+@comptable_required
 def factures(request):
     query = request.GET.get('q','')
     factures_list = Facture.objects.all()
@@ -443,12 +497,7 @@ def factures(request):
         
         
     return render(request, 'projManagement/factures.html', {'factures': factures_list, 'query' : query})
-
-
-
-
-
-
+@raf_required
 def creer_facture(request):
     if request.method == 'POST':
         formulaire = FactureForm(request.POST)
@@ -471,17 +520,17 @@ def creer_facture(request):
         formulaire.fields['journal'].queryset = journaux_disponibles
     
     return render(request, 'projManagement/creationFacture.html', {'form': formulaire})
-
+@comptable_required
 def detail_facture(request, id):
     facture = Facture.objects.filter(id=id).first()
     return render(request, 'projManagement/detailFacture.html', {'facture': facture})
 
-
+@comptable_required
 def detail_ligne(request, id):
     # Récupère la ligne ou retourne une 404 si non trouvée
     ligne = Ligne.objects.filter(id=id).first()
     return render(request, 'projManagement/detailLigne.html', {'ligne': ligne})
-
+@comptable_required
 def modifier_ligne(request, id):
     ligne = Ligne.objects.filter(id=id).first()
     if request.method == 'POST':
@@ -492,7 +541,7 @@ def modifier_ligne(request, id):
     else:
         formulaire = LigneForm(instance=ligne)
     return render(request, 'projManagement/modifierLigne.html', {'form': formulaire, 'ligne': ligne})
-
+@comptable_required
 def ajouter_ligne(request, id):
     journal = Journal.objects.filter(id=id).first()
     if not journal:
@@ -510,9 +559,7 @@ def ajouter_ligne(request, id):
         #formulaire.fields['journal'].widget = forms.HiddenInput()
     
     return render(request, 'projManagement/ajouterLigne.html', {'form': formulaire, 'journal': journal})
-
-
-@comptable_required
+@login_required
 def prestations(request):
     query = request.GET.get('q','')
     prestations_list = Prestation.objects.all()
@@ -526,11 +573,11 @@ def prestations(request):
             )
         
     return render(request, 'projManagement/prestations.html', {'prestations': prestations_list, 'query' : query})
-
+@login_required
 def detail_prestation(request, id):
     prestation = Prestation.objects.filter(id=id).first()
     return render(request, 'projManagement/detailPrestation.html', {'prestation': prestation})
-
+@raf_required
 def creer_prestation(request):
     if request.method == 'POST':
         formulaire = PrestationForm(request.POST)
@@ -540,6 +587,7 @@ def creer_prestation(request):
     else:
         formulaire = PrestationForm()
     return render(request, 'projManagement/creationPrestation.html', {'form': formulaire})
+@raf_required
 def modifier_prestation(request, id):
     prestation = Prestation.objects.filter(id=id).first()
     if request.method == 'POST':
@@ -550,7 +598,7 @@ def modifier_prestation(request, id):
     else:
         formulaire = PrestationForm(instance=prestation)
     return render(request, 'projManagement/modifierPrestation.html', {'form': formulaire, 'prestation': prestation})
-
+@login_required
 def collaborateurs(request):
     query = request.GET.get('q', '')  # Récupère la requête de recherche
     collaborateurs_list = Collaborateur.objects.all()
@@ -565,7 +613,7 @@ def collaborateurs(request):
 
     return render(request, 'projManagement/collaborateurs.html', {'collaborateurs': collaborateurs_list, 'query': query})
 
-
+@raf_required
 def creer_collaborateur(request):
     if request.method == 'POST':
         formulaire = CollaborateurForm(request.POST)
@@ -575,7 +623,7 @@ def creer_collaborateur(request):
     else:
         formulaire = CollaborateurForm()
     return render(request, 'projManagement/creationCollaborateur.html', {'form': formulaire})
-
+@raf_required
 def supprimer_collaborateur(request, id):
     collaborateur = Collaborateur.objects.filter(id=id).first()
     feuillesDuCollaborateur = FeuilleDeTemps.objects.filter(collaborateur=collaborateur)
@@ -585,6 +633,7 @@ def supprimer_collaborateur(request, id):
     
     collaborateur.delete()
     return HttpResponseRedirect(reverse('collaborateurs'))
+@login_required
 def detail_collaborateur(request, id):
     
     collaborateur = Collaborateur.objects.filter(id=id).first()  
@@ -597,7 +646,7 @@ def detail_collaborateur(request, id):
     #modifiable = not (hasattr(journal, 'facture') and journal.facture)
     #return render(request, 'projManagement/detailJournal.html', {'journal': journal, 'modifiable': modifiable})
 
-
+@raf_required
 def modifier_collaborateur(request, id):
   
     collaborateur = Collaborateur.objects.filter(id=id).first()  
@@ -611,7 +660,7 @@ def modifier_collaborateur(request, id):
         formulaire = CollaborateurForm(instance=collaborateur)
 
     return render(request, 'projManagement/modifierCollaborateur.html', {'form': formulaire, 'collaborateur': collaborateur})
-
+@login_required
 def feuilles_de_temps(request):
     
     query = request.GET.get('q', '')  # Récupère la requête de recherche
@@ -626,9 +675,11 @@ def feuilles_de_temps(request):
         )
 
     return render(request, 'projManagement/feuillesDeTemps.html', {'feuilles': feuilles_list, 'query': query})
+@login_required
 def detail_feuille_de_temps(request, id):
     feuille = FeuilleDeTemps.objects.filter(id=id).first()
-    return render (request,'projManagement/detialFeuilleDeTemps.html', {'feuille' : feuille})
+    return render (request,'projManagement/detailFeuilleDeTemps.html', {'feuille' : feuille})
+@login_required
 def creer_feuille_de_temps(request):
     """
     Vue pour créer une nouvelle feuille de temps.
@@ -642,7 +693,7 @@ def creer_feuille_de_temps(request):
         formulaire = FeuilleDeTempsForm()
 
     return render(request, 'projManagement/creationFeuilleDeTemps.html', {'form': formulaire})
-
+@login_required
 def ajouter_ligne_feuille_de_temps(request, id):
     feuille = FeuilleDeTemps.objects.filter(id=id).first()
     
@@ -671,3 +722,70 @@ def ajouter_ligne_feuille_de_temps(request, id):
 
     # Rendre la page avec le formulaire et la feuille de temps
     return render(request, 'projManagement/ajouterLigneFeuilleDeTemps.html', {'form': formulaire, 'feuille': feuille})
+# Dans views.py
+
+@raf_required
+def ajouter_paiement(request, facture_id):
+    """Ajouter un paiement à une facture."""
+    facture = Facture.objects.get(id=facture_id)
+    
+    if request.method == 'POST':
+        formulaire = PaiementForm(request.POST, facture=facture)
+        if formulaire.is_valid():
+            paiement = formulaire.save(commit=False)
+            paiement.facture = facture
+            paiement.save()
+            messages.success(request, "Le paiement a été enregistré avec succès.")
+            return HttpResponseRedirect(reverse('detail_facture', args=[facture_id]))
+    else:
+        formulaire = PaiementForm(facture=facture)
+    
+    return render(request, 'projManagement/creationPaiement.html', {
+        'form': formulaire,
+        'facture': facture
+    })
+
+@raf_required
+def detail_paiement(request, id):
+    """Afficher les détails d'un paiement."""
+    paiement = Paiement.objects.get(id=id)
+    return render(request, 'projManagement/detail_paiement.html', {'paiement': paiement})
+
+@raf_required
+def supprimer_paiement(request, id):
+    """Supprimer un paiement."""
+    paiement = Paiement.objects.get(id=id)
+    facture_id = paiement.facture.id
+    
+    # On garde en mémoire la facture pour mettre à jour son statut après
+    facture = paiement.facture
+    
+    paiement.delete()
+    
+    # Mise à jour du statut de la facture
+    total_paiements = sum(p.montant for p in facture.paiements.all())
+    if total_paiements == 0:
+        facture.statut = 'impayé'
+    elif total_paiements < facture.montant_total:
+        facture.statut = 'partiellement payé'
+    else:
+        facture.statut = 'payé'
+    facture.save()
+    
+    messages.success(request, "Le paiement a été supprimé avec succès.")
+    return HttpResponseRedirect(reverse('detail_facture', args=[facture_id]))
+
+# Mise à jour de la vue detail_facture pour inclure les paiements
+@raf_required
+def detail_facture(request, id):
+    facture = Facture.objects.get(id=id)
+    
+    # Calculer le total des paiements
+    total_paiements = sum(p.montant for p in facture.paiements.all())
+    montant_restant = facture.montant_total - total_paiements
+    
+    return render(request, 'projManagement/detailFacture.html', {
+        'facture': facture,
+        'total_paiements': total_paiements,
+        'montant_restant': montant_restant
+    })

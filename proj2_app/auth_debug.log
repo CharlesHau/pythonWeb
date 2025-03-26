@@ -124,3 +124,427 @@ WARNING 2025-03-17 00:05:45,113 decorators Accès refusé à /prestations/: utilisa
 DEBUG 2025-03-17 00:05:45,157 decorators Accès autorisé à /home/: utilisateur connecté
 WARNING 2025-03-17 00:05:56,346 decorators Accès refusé à /prestations/: utilisateur non connecté
 DEBUG 2025-03-17 00:05:56,410 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:13:50,689 decorators Accès refusé à /: utilisateur non connecté
+INFO 2025-03-17 08:14:04,781 views Tentative de connexion avec email: test@gmail.com
+INFO 2025-03-17 08:14:04,795 views Email trouvé en base: test@gmail.com
+WARNING 2025-03-17 08:14:05,207 views Mot de passe incorrect pour: test@gmail.com
+INFO 2025-03-17 08:14:18,296 views Tentative de connexion avec email: test@gmail.com
+INFO 2025-03-17 08:14:18,299 views Email trouvé en base: test@gmail.com
+WARNING 2025-03-17 08:14:18,693 views Mot de passe incorrect pour: test@gmail.com
+WARNING 2025-03-17 08:17:34,711 decorators Accès refusé à /home/: utilisateur non connecté
+WARNING 2025-03-17 08:17:34,950 decorators Accès refusé à /home/: utilisateur non connecté
+INFO 2025-03-17 08:17:37,225 views Tentative de connexion avec email: testVerif@gmail.com
+INFO 2025-03-17 08:17:37,226 views Email trouvé en base: testVerif@gmail.com
+INFO 2025-03-17 08:17:37,651 views Authentification réussie pour: testVerif@gmail.com
+DEBUG 2025-03-17 08:17:37,663 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:41,408 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:41,419 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:42,061 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:42,077 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:42,225 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:42,237 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:42,413 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:42,434 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:45,575 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:45,591 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:46,344 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:46,357 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:46,491 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:46,510 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:46,734 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:46,747 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:46,932 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:46,950 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:47,142 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:47,157 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:47,509 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:47,527 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:47,773 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:47,788 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:48,118 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:48,131 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:48,366 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:48,379 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:48,654 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:48,673 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:49,413 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:49,427 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:17:49,919 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:17:49,940 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:18:01,313 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:18:01,324 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-17 08:18:08,696 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-17 08:20:41,995 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:20:47,042 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:20:47,065 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:20:47,882 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:20:47,895 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-17 08:20:48,146 decorators Accès refusé à /prestations/: utilisateur non connecté
+DEBUG 2025-03-17 08:20:48,166 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-17 08:23:28,544 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 00:44:20,856 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+WARNING 2025-03-26 00:44:21,996 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+WARNING 2025-03-26 00:44:23,240 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+WARNING 2025-03-26 00:47:53,062 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+WARNING 2025-03-26 00:47:54,217 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+INFO 2025-03-26 00:47:55,399 views Tentative de connexion avec email: comptable@test.com
+INFO 2025-03-26 00:47:55,399 views Email trouvé en base: comptable@test.com
+INFO 2025-03-26 00:47:55,784 views Authentification réussie pour: comptable@test.com
+DEBUG 2025-03-26 00:47:55,786 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 00:47:55,809 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+DEBUG 2025-03-26 00:47:55,811 decorators Accès autorisé à /home/: utilisateur connecté
+INFO 2025-03-26 00:47:57,000 views Tentative de connexion avec email: raf@test.com
+INFO 2025-03-26 00:47:57,001 views Email trouvé en base: raf@test.com
+INFO 2025-03-26 00:47:57,390 views Authentification réussie pour: raf@test.com
+DEBUG 2025-03-26 00:47:57,393 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 00:47:57,395 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+WARNING 2025-03-26 00:47:58,576 decorators Accès refusé à /factures/creer/: utilisateur non connecté
+WARNING 2025-03-26 19:50:29,811 decorators Accès refusé à /: utilisateur non connecté
+INFO 2025-03-26 19:50:31,460 views Tentative de connexion avec email: testVerif@gmail.com
+INFO 2025-03-26 19:50:31,466 views Email trouvé en base: testVerif@gmail.com
+INFO 2025-03-26 19:50:31,957 views Authentification réussie pour: testVerif@gmail.com
+DEBUG 2025-03-26 19:50:31,986 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 19:50:33,243 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 19:50:33,943 decorators Accès autorisé à /missions/: utilisateur connecté
+WARNING 2025-03-26 19:50:34,426 decorators Accès refusé à /journaux/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:34,439 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 19:50:34,910 decorators Accès refusé à /factures/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:34,925 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 19:50:35,687 decorators Accès autorisé à /prestations/: utilisateur connecté
+WARNING 2025-03-26 19:50:36,350 decorators Accès refusé à /factures/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:36,361 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 19:50:36,719 decorators Accès refusé à /factures/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:36,731 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 19:50:36,874 decorators Accès refusé à /factures/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:36,887 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 19:50:37,479 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 19:50:37,943 decorators Accès autorisé à /collaborateurs/: utilisateur connecté
+DEBUG 2025-03-26 19:50:38,754 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-26 19:50:40,504 decorators Accès autorisé à /feuiiles-de-temps/1/: utilisateur connecté
+WARNING 2025-03-26 19:50:42,174 decorators Accès refusé à /journaux/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:42,188 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 19:50:43,628 decorators Accès refusé à /factures/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:43,643 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 19:50:44,446 decorators Accès refusé à /journaux/: utilisateur non connecté
+DEBUG 2025-03-26 19:50:44,459 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 19:50:44,960 decorators Accès autorisé à /missions/: utilisateur connecté
+WARNING 2025-03-26 20:04:33,133 decorators Accès refusé à /missions/: utilisateur non connecté
+DEBUG 2025-03-26 20:04:40,314 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 20:04:42,639 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:04:44,632 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 20:04:46,566 decorators Accès autorisé à /missions/creer/: utilisateur connecté
+DEBUG 2025-03-26 20:05:00,708 decorators Accès autorisé à /missions/creer/: utilisateur connecté
+DEBUG 2025-03-26 20:05:00,734 decorators Accès autorisé à /missions/: utilisateur connecté
+WARNING 2025-03-26 20:05:09,551 decorators Accès refusé à /journaux/: utilisateur non connecté
+DEBUG 2025-03-26 20:05:09,570 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 20:05:11,039 decorators Accès refusé à /factures/: utilisateur non connecté
+DEBUG 2025-03-26 20:05:11,056 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 20:05:22,285 decorators Accès refusé à /feuilles-de-temps/: utilisateur non connecté
+WARNING 2025-03-26 20:05:22,788 decorators Accès refusé à /collaborateurs/: utilisateur non connecté
+WARNING 2025-03-26 20:05:23,267 decorators Accès refusé à /prestations/: utilisateur non connecté
+WARNING 2025-03-26 20:05:23,636 decorators Accès refusé à /factures/: utilisateur non connecté
+WARNING 2025-03-26 20:05:24,034 decorators Accès refusé à /journaux/: utilisateur non connecté
+WARNING 2025-03-26 20:05:24,389 decorators Accès refusé à /missions/: utilisateur non connecté
+WARNING 2025-03-26 20:05:25,131 decorators Accès refusé à /home/: utilisateur non connecté
+DEBUG 2025-03-26 20:33:35,107 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:33:37,126 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:33:37,893 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 20:33:39,054 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:33:40,992 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:33:45,222 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 20:33:45,765 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:33:48,026 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:33:53,630 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:34:12,143 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:34:13,604 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:34:19,931 decorators Accès autorisé à /home/: utilisateur connecté
+WARNING 2025-03-26 20:34:23,241 decorators Accès refusé à /home/: utilisateur non connecté
+INFO 2025-03-26 20:34:26,006 views Tentative de connexion avec email: testVerif@gmail.com
+INFO 2025-03-26 20:34:26,018 views Email trouvé en base: testVerif@gmail.com
+INFO 2025-03-26 20:34:26,464 views Authentification réussie pour: testVerif@gmail.com
+DEBUG 2025-03-26 20:34:26,480 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:34:27,267 decorators Accès autorisé à /journaux/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:34:27,877 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:34:28,597 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:34:29,110 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 20:34:29,805 decorators Accès autorisé à /collaborateurs/: utilisateur connecté
+DEBUG 2025-03-26 20:34:30,361 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-26 20:34:30,879 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 20:34:31,625 decorators Accès autorisé à /journaux/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:34:32,108 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 20:34:33,133 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 20:34:33,766 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 20:34:34,777 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:34:35,119 decorators Accès autorisé à /journaux/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 20:34:35,981 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+WARNING 2025-03-26 20:34:36,821 decorators Accès refusé à /factures/creer/: rôle insuffisant (COMPTABLE)
+INFO 2025-03-26 20:34:40,656 views Utilisateur déconnecté
+WARNING 2025-03-26 20:34:41,830 decorators Accès refusé à /home/: utilisateur non connecté
+DEBUG 2025-03-26 20:50:32,748 decorators Accès autorisé à /prestations/: utilisateur connecté
+WARNING 2025-03-26 20:50:34,353 decorators Accès refusé à /prestations/creer/: rôle insuffisant (COMPTABLE)
+DEBUG 2025-03-26 20:50:37,315 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 21:51:54,215 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 21:51:55,266 decorators Accès autorisé à /clients/2/: utilisateur connecté
+DEBUG 2025-03-26 22:01:20,823 decorators Accès autorisé à /clients/2/: utilisateur connecté
+DEBUG 2025-03-26 22:01:23,052 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:01:24,258 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:01:56,333 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:01:56,350 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:01:58,215 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:14,183 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:14,767 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:14,936 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:23,265 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:02:24,274 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:41,172 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:42,992 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:43,322 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:02:43,471 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:05:12,078 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:05:13,098 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:05:13,297 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:05:14,912 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:05:16,725 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:05:17,838 decorators Accès autorisé à /clients/5/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:05:22,179 decorators Accès autorisé à /clients/5/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:05:22,197 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:06:30,679 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:06:32,074 decorators Accès autorisé à /clients/5/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:06:38,129 decorators Accès autorisé à /clients/5/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:06:38,144 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:06:42,506 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:08:50,965 decorators Accès autorisé à /clients/5/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:08:55,173 decorators Accès autorisé à /clients/5/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:08:55,190 decorators Accès autorisé à /clients/5/: utilisateur connecté
+DEBUG 2025-03-26 22:09:02,275 decorators Accès autorisé à /clients/5/supprimer/: utilisateur connecté
+DEBUG 2025-03-26 22:09:02,292 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:09:03,586 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:09:17,337 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:09:21,914 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:09:21,929 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:11:02,447 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:12:12,934 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:12:14,174 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:12:25,897 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:12:31,219 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:12:36,762 decorators Accès autorisé à /clients/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:12:36,777 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:12:40,056 decorators Accès autorisé à /clients/7/: utilisateur connecté
+DEBUG 2025-03-26 22:12:52,510 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 22:14:23,959 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:14:24,422 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:14:28,982 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:14:30,224 decorators Accès autorisé à /journaux/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 22:14:32,920 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:14:35,637 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 22:14:37,846 decorators Accès autorisé à /missions/2/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:14:42,090 decorators Accès autorisé à /missions/2/modifier/: utilisateur connecté
+DEBUG 2025-03-26 22:14:42,107 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 22:15:49,104 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 22:15:51,755 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:15:54,054 decorators Accès autorisé à /journaux/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 22:15:54,654 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 22:15:55,208 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 22:22:54,499 decorators Accès autorisé à /journaux/: rôle COMPTABLE autorisé
+DEBUG 2025-03-26 22:22:56,167 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+WARNING 2025-03-26 22:22:58,572 decorators Accès refusé à /factures/1/: rôle insuffisant (COMPTABLE)
+WARNING 2025-03-26 22:23:03,458 decorators Accès refusé à /factures/1/: rôle insuffisant (COMPTABLE)
+INFO 2025-03-26 22:23:04,273 views Utilisateur déconnecté
+INFO 2025-03-26 22:23:18,765 views Tentative de connexion avec email: testVerif@gmail.com
+INFO 2025-03-26 22:23:18,768 views Email trouvé en base: testVerif@gmail.com
+INFO 2025-03-26 22:23:19,220 views Authentification réussie pour: testVerif@gmail.com
+DEBUG 2025-03-26 22:23:19,232 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 22:23:22,401 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+WARNING 2025-03-26 22:23:23,864 decorators Accès refusé à /factures/1/: rôle insuffisant (COMPTABLE)
+DEBUG 2025-03-26 22:24:23,669 decorators Accès autorisé à /factures/: rôle COMPTABLE autorisé
+WARNING 2025-03-26 22:24:24,687 decorators Accès refusé à /factures/1/: rôle insuffisant (COMPTABLE)
+INFO 2025-03-26 22:24:25,651 views Utilisateur déconnecté
+INFO 2025-03-26 22:24:30,509 views Tentative de connexion avec email: raf@raf.com
+INFO 2025-03-26 22:24:30,513 views Email trouvé en base: raf@raf.com
+INFO 2025-03-26 22:24:30,926 views Authentification réussie pour: raf@raf.com
+DEBUG 2025-03-26 22:24:30,948 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 22:24:33,453 decorators Accès autorisé à /journaux/: rôle RAF autorisé
+DEBUG 2025-03-26 22:24:33,880 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-26 22:24:34,958 decorators Accès autorisé à /factures/1/: rôle RAF autorisé
+DEBUG 2025-03-26 22:24:36,422 decorators Accès autorisé à /factures/1/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:24:56,345 decorators Accès autorisé à /factures/1/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:25:07,872 decorators Accès autorisé à /factures/1/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:25:29,297 decorators Accès autorisé à /factures/1/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:28:03,198 decorators Accès autorisé à /factures/1/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:28:03,235 decorators Accès autorisé à /factures/1/: rôle RAF autorisé
+DEBUG 2025-03-26 22:28:13,203 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:28:14,541 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:28:17,004 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:28:35,876 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:28:46,476 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:28:53,822 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:29:06,806 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:30:17,263 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-26 22:30:20,296 decorators Accès autorisé à /factures/2/: rôle RAF autorisé
+DEBUG 2025-03-26 22:30:26,876 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:30:29,552 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:30:39,681 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:30:39,699 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:30:46,952 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:02,378 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:04,169 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:07,622 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:10,385 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:10,416 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:54,979 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:56,198 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:31:57,358 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:01,570 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:01,603 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:08,761 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:09,366 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:09,580 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:09,740 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:09,872 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:28,816 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:30,661 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:31,053 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:32,868 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:36,982 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:32:37,014 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:33:23,149 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:33:24,492 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:33:27,649 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:33:31,258 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:33:31,278 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:34:02,741 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:34:43,602 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:34:46,910 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:34:52,653 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:34:52,682 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:07,350 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:10,326 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:11,149 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:16,816 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:18,006 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:20,778 decorators Accès autorisé à /factures/4/ajouter-paiement/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:20,807 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:35:22,679 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:37:59,617 decorators Accès autorisé à /factures/4/: rôle RAF autorisé
+DEBUG 2025-03-26 22:38:00,991 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:38:02,619 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:38:16,684 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:42:27,763 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:46:05,864 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:46:10,382 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:46:12,413 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:46:33,705 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:51:45,317 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-26 22:51:46,440 decorators Accès autorisé à /feuilles-de-temps/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:52:02,539 decorators Accès autorisé à /feuilles-de-temps/creer/: utilisateur connecté
+DEBUG 2025-03-26 22:52:02,554 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:05,132 decorators Accès autorisé à /feuiiles-de-temps/4/: utilisateur connecté
+DEBUG 2025-03-26 22:52:27,902 decorators Accès autorisé à /feuiiles-de-temps/4/: utilisateur connecté
+DEBUG 2025-03-26 22:52:29,899 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:37,342 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:38,961 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:39,963 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:40,121 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:40,287 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:44,923 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:47,617 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:54,486 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:52:56,425 decorators Accès autorisé à /feuiiles-de-temps/4/: utilisateur connecté
+DEBUG 2025-03-26 22:53:01,155 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:08,160 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:08,186 decorators Accès autorisé à /feuiiles-de-temps/4/: utilisateur connecté
+DEBUG 2025-03-26 22:55:13,175 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:16,464 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:17,933 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:18,183 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:22,881 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:26,947 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:26,979 decorators Accès autorisé à /feuiiles-de-temps/4/: utilisateur connecté
+DEBUG 2025-03-26 22:55:31,737 decorators Accès autorisé à /collaborateurs/: utilisateur connecté
+DEBUG 2025-03-26 22:55:39,808 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:54,948 decorators Accès autorisé à /feuilles-de-temps/4/ajouter_ligne_feuille_de_temps/: utilisateur connecté
+DEBUG 2025-03-26 22:55:54,966 decorators Accès autorisé à /feuiiles-de-temps/4/: utilisateur connecté
+DEBUG 2025-03-26 22:56:03,187 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 22:58:20,289 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:58:25,219 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:58:30,204 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 22:58:41,288 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:03:28,593 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:04:36,159 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:08:58,140 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:09:06,212 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 23:09:09,204 decorators Accès autorisé à /prestations/1/: utilisateur connecté
+DEBUG 2025-03-26 23:09:13,436 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 23:09:16,529 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-26 23:09:18,007 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:09:40,485 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:09:45,141 decorators Accès autorisé à /journaux/2/: rôle RAF autorisé
+DEBUG 2025-03-26 23:10:24,545 decorators Accès autorisé à /journaux/: rôle RAF autorisé
+DEBUG 2025-03-26 23:10:27,053 decorators Accès autorisé à /journaux/2/: rôle RAF autorisé
+DEBUG 2025-03-26 23:10:36,381 decorators Accès autorisé à /journaux/: rôle RAF autorisé
+DEBUG 2025-03-26 23:10:37,797 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-26 23:11:16,507 decorators Accès autorisé à /factures/1/: rôle RAF autorisé
+DEBUG 2025-03-26 23:11:18,327 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:11:19,287 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:11:22,138 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:11:28,171 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:11:38,671 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:12:37,078 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:15:20,740 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:15:23,078 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:15:26,648 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:16:11,012 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:16:52,497 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:16:54,789 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:17:10,499 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:17:49,983 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:18:03,529 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:19:23,083 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:19:47,570 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:21:07,800 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:22:42,153 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:22:42,861 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:22:43,050 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:22:52,880 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:23:11,545 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:24:21,435 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:24:38,351 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:24:40,050 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:25:43,998 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:25:56,894 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:25:59,282 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-26 23:26:00,537 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-26 23:26:01,294 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-26 23:26:01,759 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-26 23:26:02,245 decorators Accès autorisé à /collaborateurs/: utilisateur connecté
+DEBUG 2025-03-26 23:26:02,926 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:26:04,766 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:26:06,583 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:28:51,691 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:28:58,834 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:29:02,659 decorators Accès autorisé à /journaux/1/: rôle RAF autorisé
+DEBUG 2025-03-26 23:29:15,082 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-26 23:31:34,148 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-26 23:31:35,296 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:31:45,485 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:31:50,423 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:31:51,608 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:32:12,861 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:33:09,845 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:33:16,365 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:33:21,769 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-26 23:33:34,846 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:34:37,062 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:34:38,097 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:34:39,090 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:35:16,920 decorators Accès autorisé à /missions/5/: utilisateur connecté
+DEBUG 2025-03-26 23:35:43,302 decorators Accès autorisé à /missions/5/: utilisateur connecté
+DEBUG 2025-03-26 23:35:47,844 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:35:52,436 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:38:19,486 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-26 23:38:20,416 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:38:21,300 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:38:21,504 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:38:21,671 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:38:21,827 decorators Accès autorisé à /missions/2/: utilisateur connecté
+DEBUG 2025-03-26 23:38:21,972 decorators Accès autorisé à /missions/2/: utilisateur connecté

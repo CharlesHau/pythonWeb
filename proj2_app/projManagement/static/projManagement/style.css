@@ -75,7 +75,7 @@ header nav ul li a {
 
 /* Contenu principal */
 main {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 2rem auto;
   background: var(--bg-white);
   border-radius: var(--border-radius);

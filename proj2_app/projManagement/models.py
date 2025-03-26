@@ -68,6 +68,7 @@ class Client(models.Model):
     pays = models.CharField(max_length=100, blank=True, null=True)
     date_inscription = models.DateTimeField(auto_now_add=True)
     statut = models.BooleanField(default=False)
+    logo = models.ImageField(upload_to='client_logos/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.prenom} {self.nom}"
@@ -124,3 +125,54 @@ class Ligne(models.Model):
     
     def __str__(self):
         return f"{self.quantite} x {self.prestation.description}"
+# Dans models.py
+
+class Paiement(models.Model):
+    facture = models.ForeignKey(Facture, on_delete=models.CASCADE, related_name="paiements")
+    date_paiement = models.DateField()
+    montant = models.DecimalField(max_digits=10, decimal_places=2)
+    reference = models.CharField(max_length=100, blank=True, null=True)
+    
+    # Méthodes de paiement possibles
+    MODE_PAIEMENT_CHOICES = [
+        ('virement', 'Virement bancaire'),
+        ('cheque', 'Chèque'),
+        ('especes', 'Espèces'),
+        ('cb', 'Carte bancaire'),
+    ]
+    mode_paiement = models.CharField(max_length=20, choices=MODE_PAIEMENT_CHOICES, default='virement')
+    
+    # Commentaire optionnel
+    commentaire = models.TextField(blank=True, null=True)
+    
+    # Pour savoir quand le paiement a été enregistré
+    date_creation = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-date_paiement']  # Les paiements les plus récents en premier
+        verbose_name = "Paiement"
+        verbose_name_plural = "Paiements"
+    
+    def __str__(self):
+        return f"Paiement de {self.montant}€ du {self.date_paiement} pour facture #{self.facture.id}"
+    
+    def save(self, *args, **kwargs):
+        # Mettre à jour le statut de la facture si nécessaire
+        super().save(*args, **kwargs)
+        self.update_facture_status()
+    
+    def update_facture_status(self):
+        """
+        Met à jour le statut de la facture en fonction des paiements.
+        """
+        facture = self.facture
+        total_paiements = sum(p.montant for p in facture.paiements.all())
+        
+        # Si le total des paiements est supérieur ou égal au montant de la facture
+        if total_paiements >= facture.montant_total:
+            facture.statut = 'payé'
+            facture.save()
+        # Sinon, si au moins un paiement a été effectué mais pas la totalité
+        elif total_paiements > 0:
+            facture.statut = 'partiellement payé'
+            facture.save()

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class AuthenticationMiddleware:
     """
     Middleware qui vérifie l'authentification de l'utilisateur
-    et charge le collaborateur dans l'objet request
+    et charge le collaborateur dans l'objet request (similaire à l'attribut de session en JAVA EE)
     """
     def __init__(self, get_response):
         self.get_response = get_response

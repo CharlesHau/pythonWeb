@@ -1,0 +1,21 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Ajouter un paiement</h1>
+<h2>Facture #{{ facture.id }} - {{ facture.montant_total|floatformat:2 }} €</h2>
+
+<p>
+    Facture émise le {{ facture.date_emission }} pour la mission 
+    <a href="{% url 'detail_mission' facture.journal.mission.id %}">{{ facture.journal.mission.title }}</a>
+</p>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Enregistrer le paiement" class="btn">
+</form>
+
+<a href="{% url 'detail_facture' facture.id %}" class="btn">Retour à la facture</a>
+{% endblock %}

@@ -28,6 +28,7 @@ def login_required(view_func):
     
     return wrapper
 
+
 def role_required(allowed_roles):
     """
     Décorateur qui vérifie si l'utilisateur a l'un des rôles autorisés.
@@ -38,25 +39,27 @@ def role_required(allowed_roles):
     def decorator(view_func):
         @wraps(view_func)
         def wrapper(request, *args, **kwargs):
-            # Vérifier si l'utilisateur est connecté et si le collaborateur est chargé
-            if not hasattr(request, 'collaborateur'):
+            # Vérifier si l'utilisateur est connecté
+            if not request.session.get('collaborateur_id'):
                 logger.warning(f"Accès refusé à {request.path}: utilisateur non connecté")
                 return redirect('login')
             
-            # Vérifier si le rôle de l'utilisateur est autorisé
-            if request.collaborateur.role not in allowed_roles:
-                logger.warning(
-                    f"Accès refusé à {request.path}: rôle insuffisant ({request.collaborateur.role})"
-                )
-                return redirect('access_denied')
+            # Obtenir le rôle de l'utilisateur
+            collaborateur_role = request.session.get('collaborateur_role')
             
-            logger.debug(f"Accès autorisé à {request.path}: rôle {request.collaborateur.role} autorisé")
+            # Vérifier si le rôle de l'utilisateur est autorisé
+            if collaborateur_role not in allowed_roles:
+                logger.warning(
+                    f"Accès refusé à {request.path}: rôle insuffisant ({collaborateur_role})"
+                )
+                return redirect('access_denied')  # Redirection vers la page d'accès refusé
+            
+            logger.debug(f"Accès autorisé à {request.path}: rôle {collaborateur_role} autorisé")
             return view_func(request, *args, **kwargs)
         
         return wrapper
     
     return decorator
-
 # Décorateurs spécifiques pour chaque rôle
 def comptable_required(view_func):
     """Décorateur pour restreindre l'accès aux comptables, RAF et associés"""

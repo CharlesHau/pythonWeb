@@ -40,6 +40,7 @@
             </th>
             <th>Budget</th>
             <th>Montant Facturé</th>
+            <th>Coût total (prestations)</th>
         </tr>
     </thead>
     <tbody>
@@ -53,6 +54,7 @@
             <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.statut }}</a></td>
             <td>{{ mission.budget|floatformat:2 }} €</td>
             <td>{{ mission.montant_facture|floatformat:2 }} €</td>
+            <td>{{ mission.cout_prestations|floatformat:2 }} €</td>
         </tr>
         {% empty %}
         <tr>

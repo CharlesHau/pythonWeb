@@ -2,8 +2,15 @@
 
 {% block content %}
 <h1>Détails de la facture</h1>
+
 <h2>Facture associée au <a href="{% url 'detail_journal' facture.journal.id %}">journal {{facture.journal.id}}</a></h2>
 
+
+{% for message in messages %}
+<hr>
+    <h2>{{ message }}</h2>
+    <hr>
+{% endfor %}
 <table border="1">
     <tr>
         <th>Date d'émission</th>
@@ -11,7 +18,7 @@
     </tr>
     <tr>
         <th>Montant total</th>
-        <td>{{ facture.montant_total }}</td>
+        <td>{{ facture.montant_total|floatformat:2 }} €</td>
     </tr>
     <tr>
         <th>Statut</th>
@@ -19,5 +26,47 @@
     </tr>
 </table>
 
+<h2>Paiements</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Montant</th>
+            <th>Mode de paiement</th>
+            <th>Référence</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paiement in facture.paiements.all %}
+        <tr>
+            <td><a href="{% url 'detail_paiement' paiement.id %}">{{ paiement.date_paiement }}</a></td>
+            <td><a href="{% url 'detail_paiement' paiement.id %}">{{ paiement.montant|floatformat:2 }} €</a></td>
+            <td><a href="{% url 'detail_paiement' paiement.id %}">{{ paiement.get_mode_paiement_display }}</a></td>
+            <td><a href="{% url 'detail_paiement' paiement.id %}">{{ paiement.reference|default:"-" }}</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Aucun paiement enregistré pour cette facture.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Total payé</th>
+            <td>{{ total_paiements|floatformat:2 }} €</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Reste à payer</th>
+            <td>{{ montant_restant|floatformat:2 }} €</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
+<a href="{% url 'ajouter_paiement' facture.id %}" class="btn">Ajouter un paiement</a>
 <a href="{% url 'factures' %}" class="btn">Retour à la liste des factures</a>
 {% endblock %}

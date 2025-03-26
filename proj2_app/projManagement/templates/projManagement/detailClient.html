@@ -25,7 +25,11 @@
         <td>{{ client.adresse }}</td>
     </tr>
 </table>
-
+{% if client.logo %}
+    <div class="client-logo">
+        <img src="{{ client.logo.url }}" alt="Logo de {{ client.nom }}" style="max-width: 200px; max-height: 100px;">
+    </div>
+{% endif %}
 <h2>Missions associées</h2>
 <table border="1">
     <thead>

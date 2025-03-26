@@ -28,6 +28,18 @@
         <th>Client</th>
         <td><a href="{% url 'detail_client' mission.client.id %}">{{ mission.client.nom }} {{ mission.client.prenom }}</a></td>
     </tr>
+    <tr>
+        <th>Budget</th>
+        <td>{{ mission.budget|floatformat:2 }} €</td>
+    </tr>
+    <tr>
+        <th>Montant facturé</th>
+        <td>{{ montant_facture|floatformat:2 }} €</td>
+    </tr>
+    <tr>
+        <th>Coût des prestations</th>
+        <td>{{ cout_prestations|floatformat:2 }} €</td>
+    </tr>
 </table>
 
 <h2>Journaux associés</h2>
