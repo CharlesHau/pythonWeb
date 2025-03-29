@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Client, Mission, Journal, Facture, Prestation, Ligne, Collaborateur, FeuilleDeTemps, LigneDeFeuilleDeTemps, Paiement
-from .forms import LoginForm, ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm,LigneFeuilleDeTempsForm, PaiementForm
+from .models import Client, Mission, Journal, Facture, Prestation, Ligne, Collaborateur, FeuilleDeTemps, LigneDeFeuilleDeTemps, Paiement, TaskWorkflow, TaskAssignment
+from .forms import LoginForm, ClientForm, MissionForm, FactureForm, PrestationForm,JournalForm, LigneForm, RechercheMissionForm, CollaborateurForm,FeuilleDeTempsForm,LigneFeuilleDeTempsForm, PaiementForm, TaskWorkflowForm, TaskAssignmentForm
 from django.urls import reverse
 from django.utils.timezone import now
 from django.db.models import Sum,  Q, F
@@ -867,4 +867,158 @@ def detail_facture(request, id):
         'facture': facture,
         'total_paiements': total_paiements,
         'montant_restant': montant_restant
+    })
+
+@login_required
+def tasks_list(request):
+    """View to list all tasks relevant to the current user"""
+    # Tasks created by the current user
+    created_tasks = TaskWorkflow.objects.filter(created_by_id=request.session.get('collaborateur_id'))
+    
+    # Tasks assigned to the current user
+    assigned_tasks = TaskWorkflow.objects.filter(
+        assignments__assigned_to_id=request.session.get('collaborateur_id')
+    ).distinct()
+    
+    return render(request, 'projManagement/tasks_list.html', {
+        'created_tasks': created_tasks,
+        'assigned_tasks': assigned_tasks
+    })
+
+@login_required
+def create_task(request, task_type=None, related_id=None):
+    """View to create a new task and assign it to collaborators"""
+    if request.method == 'POST':
+        form = TaskWorkflowForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.created_by_id = request.session.get('collaborateur_id')
+            
+            # Associate with related objects based on task type
+            if task.task_type == 'JOURNAL_VALIDATION' and related_id:
+                task.related_journal_id = related_id
+            elif task.task_type == 'CLIENT_CREATION' and related_id:
+                task.related_client_id = related_id
+            elif task.task_type == 'MISSION_CREATION' and related_id:
+                task.related_mission_id = related_id
+            elif task.task_type == 'FACTURE_CREATION' and related_id:
+                task.related_facture_id = related_id
+                
+            task.save()
+            
+            # Redirect to assignment page
+            return redirect('assign_task', task_id=task.id)
+    else:
+        initial_data = {}
+        if task_type:
+            initial_data['task_type'] = task_type
+        
+        form = TaskWorkflowForm(initial=initial_data)
+        
+    context = {
+        'form': form,
+        'task_type': task_type,
+        'related_id': related_id
+    }
+    
+    return render(request, 'projManagement/create_task.html', context)
+
+@login_required
+def assign_task(request, task_id):
+    """View to assign a task to collaborators"""
+    task = TaskWorkflow.objects.get(id=task_id)
+    
+    if request.method == 'POST':
+        form = TaskAssignmentForm(request.POST, task_type=task.task_type)
+        if form.is_valid():
+            assignment = form.save(commit=False)
+            assignment.task = task
+            assignment.assigned_by_id = request.session.get('collaborateur_id')
+            assignment.save()
+            
+            # Update task status to in progress
+            task.status = 'IN_PROGRESS'
+            task.save()
+            
+            messages.success(request, f"Tâche assignée à {assignment.assigned_to} avec succès.")
+            
+            # Check if the user wants to assign to more collaborators
+            if 'assign_more' in request.POST:
+                return redirect('assign_task', task_id=task.id)
+            else:
+                return redirect('task_detail', task_id=task.id)
+    else:
+        form = TaskAssignmentForm(task_type=task.task_type)
+    
+    # Get existing assignments for this task
+    assignments = TaskAssignment.objects.filter(task=task)
+    
+    context = {
+        'task': task,
+        'form': form,
+        'assignments': assignments
+    }
+    
+    return render(request, 'projManagement/assign_task.html', context)
+
+@login_required
+def task_detail(request, task_id):
+    """View to see task details and manage its status"""
+    task = TaskWorkflow.objects.get(id=task_id)
+    assignments = TaskAssignment.objects.filter(task=task)
+    
+    # Check if the current user has an assignment for this task
+    user_assignment = assignments.filter(assigned_to_id=request.session.get('collaborateur_id')).first()
+    
+    context = {
+        'task': task,
+        'assignments': assignments,
+        'user_assignment': user_assignment,
+    }
+    
+    return render(request, 'projManagement/task_detail.html', context)
+
+@login_required
+def update_task_status(request, assignment_id, new_status):
+    """View to update a task's status"""
+    assignment = TaskAssignment.objects.get(id=assignment_id)
+    
+    # Verify that the current user is the assignee
+    if assignment.assigned_to_id != request.session.get('collaborateur_id'):
+        messages.error(request, "Vous n'êtes pas autorisé à modifier cette tâche.")
+        return redirect('task_detail', task_id=assignment.task.id)
+    
+    if new_status == 'COMPLETED':
+        if request.method == 'POST':
+            assignment.mark_completed()
+            messages.success(request, "Tâche marquée comme terminée.")
+            return redirect('task_detail', task_id=assignment.task.id)
+    elif new_status == 'REJECTED':
+        if request.method == 'POST':
+            rejection_note = request.POST.get('rejection_note', '')
+            assignment.mark_rejected(rejection_note)
+            messages.warning(request, "Tâche rejetée.")
+            return redirect('task_detail', task_id=assignment.task.id)
+    
+    return render(request, 'projManagement/update_task_status.html', {
+        'assignment': assignment,
+        'new_status': new_status
+    })
+
+@login_required
+def my_tasks(request):
+    """View to list tasks assigned to the current user"""
+    # Get tasks assigned to the current user
+    assignments = TaskAssignment.objects.filter(
+        assigned_to_id=request.session.get('collaborateur_id')
+    ).order_by('-assigned_at')
+    
+    # Filter by status if requested
+    status_filter = request.GET.get('status', '')
+    if status_filter:
+        assignments = assignments.filter(status=status_filter)
+    
+    return render(request, 'projManagement/my_tasks.html', {
+        'assignments': assignments,
+        'status_filter': status_filter
     })

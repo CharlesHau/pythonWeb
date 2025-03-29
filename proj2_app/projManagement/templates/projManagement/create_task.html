@@ -1,0 +1,27 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Créer une nouvelle tâche</h1>
+
+<form method="POST" novalidate>
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    
+    <div class="form-actions">
+        <button type="submit" class="btn">Créer la tâche</button>
+        <a href="{% url 'tasks_list' %}" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>
+
+<style>
+    .form-actions {
+        margin-top: 20px;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+</style>
+{% endblock %} 

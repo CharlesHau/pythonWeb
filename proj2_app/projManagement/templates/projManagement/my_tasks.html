@@ -1,0 +1,83 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Mes tâches assignées</h1>
+
+<div class="task-filters">
+    <form method="GET" action="">
+        <label for="status-filter">Filtrer par statut:</label>
+        <select id="status-filter" name="status" onchange="this.form.submit()">
+            <option value="" {% if not status_filter %}selected{% endif %}>Tous les statuts</option>
+            <option value="PENDING" {% if status_filter == 'PENDING' %}selected{% endif %}>En attente</option>
+            <option value="IN_PROGRESS" {% if status_filter == 'IN_PROGRESS' %}selected{% endif %}>En cours</option>
+            <option value="COMPLETED" {% if status_filter == 'COMPLETED' %}selected{% endif %}>Terminé</option>
+            <option value="REJECTED" {% if status_filter == 'REJECTED' %}selected{% endif %}>Rejeté</option>
+        </select>
+    </form>
+</div>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Type de tâche</th>
+            <th>Description</th>
+            <th>Créée par</th>
+            <th>Date d'assignation</th>
+            <th>Statut</th>
+            <th>Date limite</th>
+            <th>Priorité</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for assignment in assignments %}
+        <tr class="task-row {% if assignment.task.priority == 'HIGH' %}high-priority{% endif %}">
+            <td>{{ assignment.task.get_task_type_display }}</td>
+            <td>{{ assignment.task.description }}</td>
+            <td>{{ assignment.task.created_by }}</td>
+            <td>{{ assignment.assigned_at|date:"d/m/Y H:i" }}</td>
+            <td>{{ assignment.get_status_display }}</td>
+            <td>{{ assignment.task.due_date|date:"d/m/Y"|default:"Non définie" }}</td>
+            <td>{{ assignment.task.get_priority_display }}</td>
+            <td>
+                <a href="{% url 'task_detail' assignment.task.id %}" class="btn">Détails</a>
+                {% if assignment.status == 'PENDING' or assignment.status == 'IN_PROGRESS' %}
+                <a href="{% url 'update_task_status' assignment.id 'COMPLETED' %}" class="btn btn-success">Marquer terminée</a>
+                <a href="{% url 'update_task_status' assignment.id 'REJECTED' %}" class="btn btn-danger">Rejeter</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">Aucune tâche ne vous est assignée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="task-navigation">
+    <a href="{% url 'tasks_list' %}" class="btn">Retour à la liste des tâches</a>
+</div>
+
+<style>
+    .task-filters {
+        margin: 20px 0;
+    }
+    
+    .task-navigation {
+        margin-top: 20px;
+    }
+    
+    .high-priority {
+        background-color: rgba(255, 99, 71, 0.2);
+    }
+    
+    .btn-success {
+        background-color: #4CAF50;
+    }
+    
+    .btn-danger {
+        background-color: #f44336;
+    }
+</style>
+{% endblock %} 

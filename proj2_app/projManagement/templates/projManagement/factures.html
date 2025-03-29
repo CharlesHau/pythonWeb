@@ -7,31 +7,49 @@
     <input type="text" name="q" placeholder="Rechercher un attribut..." value="{{ request.GET.q }}">
     <button type="submit" class="btn">Rechercher</button>
 </form>
-<a href="{% url 'creer_facture' %}" class="btn">Créer une nouvelle facture</a>
+
+<div class="action-buttons">
+    <a href="{% url 'creer_facture' %}" class="btn">Créer une nouvelle facture</a>
+    <a href="{% url 'create_task' %}?task_type=FACTURE_CREATION" class="btn btn-workflow">Demander création de facture</a>
+</div>
+
 <table border="1">
     <thead>
         <tr>
-            <th>ID Facture</th>
             <th>Date d'émission</th>
-            <th>Montant total</th>
             <th>Journal</th>
+            <th>Mission</th>
+            <th>Client</th>
+            <th>Montant total</th>
             <th>Statut</th>
         </tr>
     </thead>
     <tbody>
         {% for facture in factures %}
         <tr>
-            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.id }}</a></td>
             <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.date_emission }}</a></td>
-            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.montant_total }}</a></td>
-            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.journal.mission.title }}</a></td>
-            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.statut }}</a></td>
+            <td><a href="{% url 'detail_journal' facture.journal.id %}">{{ facture.journal }}</a></td>
+            <td><a href="{% url 'detail_mission' facture.journal.mission.id %}">{{ facture.journal.mission.title }}</a></td>
+            <td><a href="{% url 'detail_client' facture.journal.mission.client.id %}">{{ facture.journal.mission.client.nom }} {{ facture.journal.mission.client.prenom }}</a></td>
+            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.montant_total }} €</a></td>
+            <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.get_statut_display }}</a></td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4">Aucune facture trouvée.</td>
+            <td colspan="6">Aucune facture trouvée.</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<style>
+    .action-buttons {
+        margin: 15px 0;
+    }
+    
+    .btn-workflow {
+        background-color: #9c27b0;
+        margin-left: 10px;
+    }
+</style>
 {% endblock %}

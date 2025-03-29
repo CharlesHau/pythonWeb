@@ -1,0 +1,100 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Mettre à jour le statut de la tâche</h1>
+
+<div class="task-info">
+    <h2>Informations sur la tâche</h2>
+    <table border="1">
+        <tr>
+            <th>Type de tâche</th>
+            <td>{{ assignment.task.get_task_type_display }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ assignment.task.description }}</td>
+        </tr>
+        <tr>
+            <th>Créée par</th>
+            <td>{{ assignment.task.created_by }}</td>
+        </tr>
+        <tr>
+            <th>Date d'assignation</th>
+            <td>{{ assignment.assigned_at|date:"d/m/Y H:i" }}</td>
+        </tr>
+        <tr>
+            <th>Statut actuel</th>
+            <td>{{ assignment.get_status_display }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="status-update-form">
+    <h2>{% if new_status == 'COMPLETED' %}Marquer comme terminée{% else %}Rejeter la tâche{% endif %}</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        {% if new_status == 'REJECTED' %}
+        <div class="form-group">
+            <label for="rejection_note">Raison du rejet:</label>
+            <textarea id="rejection_note" name="rejection_note" rows="4" cols="50" placeholder="Veuillez expliquer pourquoi vous rejetez cette tâche"></textarea>
+        </div>
+        {% endif %}
+        
+        <div class="form-actions">
+            <button type="submit" class="btn {% if new_status == 'COMPLETED' %}btn-success{% else %}btn-danger{% endif %}">
+                Confirmer
+            </button>
+            <a href="{% url 'task_detail' assignment.task.id %}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .task-info {
+        margin-bottom: 30px;
+    }
+    
+    h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .form-actions {
+        margin-top: 20px;
+    }
+    
+    .form-actions .btn {
+        margin-right: 10px;
+    }
+    
+    .btn-success {
+        background-color: #4CAF50;
+    }
+    
+    .btn-danger {
+        background-color: #f44336;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+</style>
+{% endblock %} 

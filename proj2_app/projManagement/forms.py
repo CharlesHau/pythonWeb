@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from .models import Client, Mission, Journal, Ligne, Prestation, Facture,Collaborateur,FeuilleDeTemps,LigneDeFeuilleDeTemps, Paiement
+from .models import Client, Mission, Journal, Ligne, Prestation, Facture,Collaborateur,FeuilleDeTemps,LigneDeFeuilleDeTemps, Paiement, TaskWorkflow, TaskAssignment
 
 
 class LoginForm(forms.Form):
@@ -118,3 +118,44 @@ class PaiementForm(forms.ModelForm):
             
             # Préremplir le montant avec le reste à payer
             self.fields['montant'].initial = montant_restant
+
+class TaskWorkflowForm(forms.ModelForm):
+    due_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+    
+    class Meta:
+        model = TaskWorkflow
+        fields = ['task_type', 'description', 'due_date', 'priority', 'comments']
+        
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(TaskWorkflowForm, self).__init__(*args, **kwargs)
+
+class TaskAssignmentForm(forms.ModelForm):
+    class Meta:
+        model = TaskAssignment
+        fields = ['assigned_to', 'notes']
+        
+    def __init__(self, *args, **kwargs):
+        task_type = kwargs.pop('task_type', None)
+        super(TaskAssignmentForm, self).__init__(*args, **kwargs)
+        
+        # Filter collaborators based on task type and roles
+        if task_type:
+            collaborateurs = Collaborateur.objects.all()
+            if task_type == 'JOURNAL_VALIDATION':
+                # Only RAF and ASSOCIE can validate journals
+                collaborateurs = collaborateurs.filter(role__in=['RAF', 'ASSOCIE'])
+            elif task_type == 'CLIENT_CREATION':
+                # All roles can create clients
+                pass
+            elif task_type == 'MISSION_CREATION':
+                # All roles can create missions
+                pass
+            elif task_type == 'FACTURE_CREATION':
+                # Only RAF and ASSOCIE can create invoices
+                collaborateurs = collaborateurs.filter(role__in=['RAF', 'ASSOCIE'])
+            elif task_type == 'PAIEMENT_CREATION':
+                # Only RAF and ASSOCIE can register payments
+                collaborateurs = collaborateurs.filter(role__in=['RAF', 'ASSOCIE'])
+                
+            self.fields['assigned_to'].queryset = collaborateurs

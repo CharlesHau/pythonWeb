@@ -8,8 +8,11 @@
     <button type="submit" class="btn">Rechercher</button>
 </form>
 
-<a href="{% url 'creer_mission' %}" class="btn">Créer une nouvelle mission</a>
-<a href="{% url 'reporting_mission' %}" class="btn">Accéder au reporting des missions</a>
+<div class="action-buttons">
+    <a href="{% url 'creer_mission' %}" class="btn">Créer une nouvelle mission</a>
+    <a href="{% url 'create_task' %}?task_type=MISSION_CREATION" class="btn btn-workflow">Demander création de mission</a>
+    <a href="{% url 'reporting_mission' %}" class="btn">Accéder au reporting des missions</a>
+</div>
 
 <table border="1">
     <thead>
@@ -61,4 +64,16 @@
         {% endfor %}
     </tbody>
 </table>
+
+<style>
+    .action-buttons {
+        margin: 15px 0;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .btn-workflow {
+        background-color: #9c27b0;
+    }
+</style>
 {% endblock %}

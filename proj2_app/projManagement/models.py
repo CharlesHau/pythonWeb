@@ -178,3 +178,81 @@ class Paiement(models.Model):
         elif total_paiements > 0:
             facture.statut = 'partiellement payé'
             facture.save()
+
+class TaskWorkflow(models.Model):
+    """Model to define workflow tasks in the system"""
+    TASK_TYPES = [
+        ('JOURNAL_VALIDATION', 'Validation de journal'),
+        ('CLIENT_CREATION', 'Création de client'),
+        ('MISSION_CREATION', 'Création de mission'),
+        ('FACTURE_CREATION', 'Création de facture'),
+        ('PAIEMENT_CREATION', 'Enregistrement de paiement'),
+    ]
+    
+    STATUS_CHOICES = [
+        ('PENDING', 'En attente'),
+        ('IN_PROGRESS', 'En cours'),
+        ('COMPLETED', 'Terminé'),
+        ('REJECTED', 'Rejeté'),
+    ]
+    
+    task_type = models.CharField(max_length=50, choices=TASK_TYPES)
+    description = models.TextField(blank=True, null=True)
+    related_journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name="workflow_tasks", null=True, blank=True)
+    related_mission = models.ForeignKey(Mission, on_delete=models.CASCADE, related_name="workflow_tasks", null=True, blank=True)
+    related_client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="workflow_tasks", null=True, blank=True)
+    related_facture = models.ForeignKey(Facture, on_delete=models.CASCADE, related_name="workflow_tasks", null=True, blank=True)
+    created_by = models.ForeignKey(Collaborateur, on_delete=models.CASCADE, related_name="created_tasks")
+    created_at = models.DateTimeField(default=now)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
+    due_date = models.DateField(null=True, blank=True)
+    priority = models.CharField(max_length=10, choices=[('LOW', 'Basse'), ('MEDIUM', 'Moyenne'), ('HIGH', 'Haute')], default='MEDIUM')
+    comments = models.TextField(blank=True, null=True)
+    
+    def __str__(self):
+        task_type_display = dict(self.TASK_TYPES).get(self.task_type, self.task_type)
+        return f"{task_type_display} - {self.get_status_display()}"
+    
+    def get_related_object(self):
+        """Returns the related object (journal, mission, client, facture) depending on task type"""
+        if self.related_journal:
+            return self.related_journal
+        elif self.related_mission:
+            return self.related_mission
+        elif self.related_client:
+            return self.related_client
+        elif self.related_facture:
+            return self.related_facture
+        return None
+
+class TaskAssignment(models.Model):
+    """Model to assign tasks to collaborators"""
+    task = models.ForeignKey(TaskWorkflow, on_delete=models.CASCADE, related_name="assignments")
+    assigned_to = models.ForeignKey(Collaborateur, on_delete=models.CASCADE, related_name="assigned_tasks")
+    assigned_at = models.DateTimeField(default=now)
+    assigned_by = models.ForeignKey(Collaborateur, on_delete=models.CASCADE, related_name="task_assignments")
+    status = models.CharField(max_length=20, choices=TaskWorkflow.STATUS_CHOICES, default='PENDING')
+    completed_at = models.DateTimeField(null=True, blank=True)
+    notes = models.TextField(blank=True, null=True)
+    
+    def __str__(self):
+        return f"Tâche assignée à {self.assigned_to}"
+    
+    def mark_completed(self):
+        self.status = 'COMPLETED'
+        self.completed_at = now()
+        self.save()
+        # Also update the parent task if all assignments are completed
+        if all(assignment.status == 'COMPLETED' for assignment in self.task.assignments.all()):
+            self.task.status = 'COMPLETED'
+            self.task.save()
+    
+    def mark_rejected(self, rejection_note=None):
+        self.status = 'REJECTED'
+        if rejection_note:
+            self.notes = rejection_note
+        self.save()
+        # Update the parent task status
+        self.task.status = 'REJECTED'
+        self.task.comments = f"Rejeté par {self.assigned_to}. Raison: {rejection_note or 'Non spécifiée'}"
+        self.task.save()

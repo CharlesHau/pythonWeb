@@ -1,0 +1,96 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Gestion des tâches de workflow</h1>
+
+<div class="task-actions">
+    <a href="{% url 'create_task' %}" class="btn">Créer une nouvelle tâche</a>
+    <a href="{% url 'my_tasks' %}" class="btn">Voir mes tâches assignées</a>
+</div>
+
+<h2>Tâches que vous avez créées</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Statut</th>
+            <th>Date de création</th>
+            <th>Date limite</th>
+            <th>Priorité</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in created_tasks %}
+        <tr>
+            <td>{{ task.get_task_type_display }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.get_status_display }}</td>
+            <td>{{ task.created_at|date:"d/m/Y" }}</td>
+            <td>{{ task.due_date|date:"d/m/Y"|default:"Non définie" }}</td>
+            <td>{{ task.get_priority_display }}</td>
+            <td>
+                <a href="{% url 'task_detail' task.id %}" class="btn">Détails</a>
+                {% if task.status == 'PENDING' %}
+                <a href="{% url 'assign_task' task.id %}" class="btn">Assigner</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">Vous n'avez créé aucune tâche.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Tâches qui vous sont assignées</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Créée par</th>
+            <th>Statut</th>
+            <th>Date limite</th>
+            <th>Priorité</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in assigned_tasks %}
+        <tr>
+            <td>{{ task.get_task_type_display }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.created_by }}</td>
+            <td>{{ task.get_status_display }}</td>
+            <td>{{ task.due_date|date:"d/m/Y"|default:"Non définie" }}</td>
+            <td>{{ task.get_priority_display }}</td>
+            <td>
+                <a href="{% url 'task_detail' task.id %}" class="btn">Détails</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">Aucune tâche ne vous est assignée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    .task-actions {
+        margin-bottom: 20px;
+    }
+    
+    .task-actions .btn {
+        margin-right: 10px;
+    }
+    
+    h2 {
+        margin-top: 30px;
+        color: var(--primary);
+    }
+</style>
+{% endblock %} 

@@ -1,0 +1,153 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Détails de la tâche</h1>
+
+<div class="task-details">
+    <table border="1">
+        <tr>
+            <th>Type</th>
+            <td>{{ task.get_task_type_display }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ task.description }}</td>
+        </tr>
+        <tr>
+            <th>Créée par</th>
+            <td>{{ task.created_by }}</td>
+        </tr>
+        <tr>
+            <th>Date de création</th>
+            <td>{{ task.created_at|date:"d/m/Y H:i" }}</td>
+        </tr>
+        <tr>
+            <th>Date limite</th>
+            <td>{{ task.due_date|date:"d/m/Y"|default:"Non définie" }}</td>
+        </tr>
+        <tr>
+            <th>Priorité</th>
+            <td>{{ task.get_priority_display }}</td>
+        </tr>
+        <tr>
+            <th>Statut</th>
+            <td>{{ task.get_status_display }}</td>
+        </tr>
+        <tr>
+            <th>Commentaires</th>
+            <td>{{ task.comments|default:"Aucun commentaire" }}</td>
+        </tr>
+        {% if task.related_journal %}
+        <tr>
+            <th>Journal associé</th>
+            <td><a href="{% url 'detail_journal' task.related_journal.id %}">{{ task.related_journal }}</a></td>
+        </tr>
+        {% endif %}
+        {% if task.related_mission %}
+        <tr>
+            <th>Mission associée</th>
+            <td><a href="{% url 'detail_mission' task.related_mission.id %}">{{ task.related_mission }}</a></td>
+        </tr>
+        {% endif %}
+        {% if task.related_client %}
+        <tr>
+            <th>Client associé</th>
+            <td><a href="{% url 'detail_client' task.related_client.id %}">{{ task.related_client }}</a></td>
+        </tr>
+        {% endif %}
+        {% if task.related_facture %}
+        <tr>
+            <th>Facture associée</th>
+            <td><a href="{% url 'detail_facture' task.related_facture.id %}">{{ task.related_facture }}</a></td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+
+<div class="assignments">
+    <h2>Assignations</h2>
+    {% if assignments %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Collaborateur</th>
+                <th>Rôle</th>
+                <th>Assigné par</th>
+                <th>Date d'assignation</th>
+                <th>Statut</th>
+                <th>Date de complétion</th>
+                <th>Notes</th>
+                {% if user_assignment and user_assignment.status != 'COMPLETED' and user_assignment.status != 'REJECTED' %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for assignment in assignments %}
+            <tr {% if assignment.assigned_to_id == request.session.collaborateur_id %}class="current-user-assignment"{% endif %}>
+                <td>{{ assignment.assigned_to }}</td>
+                <td>{{ assignment.assigned_to.get_role_display }}</td>
+                <td>{{ assignment.assigned_by }}</td>
+                <td>{{ assignment.assigned_at|date:"d/m/Y H:i" }}</td>
+                <td>{{ assignment.get_status_display }}</td>
+                <td>{{ assignment.completed_at|date:"d/m/Y H:i"|default:"-" }}</td>
+                <td>{{ assignment.notes|default:"-" }}</td>
+                {% if user_assignment.id == assignment.id and user_assignment.status != 'COMPLETED' and user_assignment.status != 'REJECTED' %}
+                <td>
+                    <a href="{% url 'update_task_status' assignment.id 'COMPLETED' %}" class="btn btn-success">Marquer terminée</a>
+                    <a href="{% url 'update_task_status' assignment.id 'REJECTED' %}" class="btn btn-danger">Rejeter</a>
+                </td>
+                {% elif user_assignment.id == assignment.id %}
+                <td>-</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Cette tâche n'a pas encore été assignée à un collaborateur.</p>
+    {% endif %}
+</div>
+
+<div class="task-actions">
+    <a href="{% url 'tasks_list' %}" class="btn">Retour à la liste des tâches</a>
+    {% if task.status == 'PENDING' %}
+    <a href="{% url 'assign_task' task.id %}" class="btn">Assigner à un collaborateur</a>
+    {% endif %}
+</div>
+
+<style>
+    .task-details {
+        margin-bottom: 30px;
+    }
+    
+    .assignments {
+        margin-bottom: 30px;
+    }
+    
+    h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+    }
+    
+    .task-actions {
+        margin-top: 20px;
+    }
+    
+    .task-actions .btn {
+        margin-right: 10px;
+    }
+    
+    .current-user-assignment {
+        background-color: rgba(144, 238, 144, 0.2);
+    }
+    
+    .btn-success {
+        background-color: #4CAF50;
+    }
+    
+    .btn-danger {
+        background-color: #f44336;
+    }
+</style>
+{% endblock %} 

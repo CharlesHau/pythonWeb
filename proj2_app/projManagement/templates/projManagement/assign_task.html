@@ -1,0 +1,102 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<h1>Assigner la tâche</h1>
+
+<div class="task-details">
+    <h2>Détails de la tâche</h2>
+    <table border="1">
+        <tr>
+            <th>Type</th>
+            <td>{{ task.get_task_type_display }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ task.description }}</td>
+        </tr>
+        <tr>
+            <th>Date de création</th>
+            <td>{{ task.created_at|date:"d/m/Y H:i" }}</td>
+        </tr>
+        <tr>
+            <th>Date limite</th>
+            <td>{{ task.due_date|date:"d/m/Y"|default:"Non définie" }}</td>
+        </tr>
+        <tr>
+            <th>Priorité</th>
+            <td>{{ task.get_priority_display }}</td>
+        </tr>
+        <tr>
+            <th>Statut</th>
+            <td>{{ task.get_status_display }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="current-assignments">
+    <h2>Assignations actuelles</h2>
+    {% if assignments %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Collaborateur</th>
+                <th>Rôle</th>
+                <th>Date d'assignation</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assignment in assignments %}
+            <tr>
+                <td>{{ assignment.assigned_to }}</td>
+                <td>{{ assignment.assigned_to.get_role_display }}</td>
+                <td>{{ assignment.assigned_at|date:"d/m/Y H:i" }}</td>
+                <td>{{ assignment.get_status_display }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Cette tâche n'a pas encore été assignée à un collaborateur.</p>
+    {% endif %}
+</div>
+
+<div class="assign-form">
+    <h2>Assigner à un nouveau collaborateur</h2>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        
+        <div class="form-actions">
+            <button type="submit" name="assign" class="btn">Assigner</button>
+            <button type="submit" name="assign_more" class="btn">Assigner et continuer</button>
+            <a href="{% url 'task_detail' task.id %}" class="btn btn-secondary">Terminer</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .task-details, .current-assignments, .assign-form {
+        margin-bottom: 30px;
+    }
+    
+    h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+    }
+    
+    .form-actions {
+        margin-top: 20px;
+    }
+    
+    .form-actions .btn {
+        margin-right: 10px;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+</style>
+{% endblock %} 

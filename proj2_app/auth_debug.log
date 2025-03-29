@@ -1332,3 +1332,71 @@ DEBUG 2025-03-29 02:02:39,540 decorators Accès autorisé à /guide/: utilisateur c
 DEBUG 2025-03-29 02:03:20,356 decorators Accès autorisé à /missions/: utilisateur connecté
 DEBUG 2025-03-29 02:03:22,085 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
 DEBUG 2025-03-29 02:03:22,868 decorators Accès autorisé à /missions/reporting/: utilisateur connecté
+DEBUG 2025-03-29 02:17:22,425 decorators Accès autorisé à /guide/: utilisateur connecté
+DEBUG 2025-03-29 02:17:24,425 decorators Accès autorisé à /tasks/: utilisateur connecté
+DEBUG 2025-03-29 02:17:26,081 decorators Accès autorisé à /tasks/create/: utilisateur connecté
+DEBUG 2025-03-29 02:17:37,233 decorators Accès autorisé à /tasks/create/: utilisateur connecté
+DEBUG 2025-03-29 02:17:37,258 decorators Accès autorisé à /tasks/1/assign/: utilisateur connecté
+DEBUG 2025-03-29 02:17:47,668 decorators Accès autorisé à /tasks/1/assign/: utilisateur connecté
+DEBUG 2025-03-29 02:17:47,688 decorators Accès autorisé à /tasks/1/: utilisateur connecté
+INFO 2025-03-29 02:17:51,735 views Utilisateur déconnecté
+WARNING 2025-03-29 02:18:13,029 decorators Accès refusé à /guide/: utilisateur non connecté
+WARNING 2025-03-29 02:18:13,924 decorators Accès refusé à /tasks/: utilisateur non connecté
+INFO 2025-03-29 02:18:16,715 views Tentative de connexion avec email: AGI@AGI.COM
+INFO 2025-03-29 02:18:16,716 views Email trouvé en base: AGI@AGI.COM
+INFO 2025-03-29 02:18:17,108 views Authentification réussie pour: AGI@AGI.COM
+DEBUG 2025-03-29 02:18:17,132 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-29 02:18:17,651 decorators Accès autorisé à /tasks/: utilisateur connecté
+DEBUG 2025-03-29 02:18:22,964 decorators Accès autorisé à /tasks/: utilisateur connecté
+INFO 2025-03-29 02:18:23,416 views Utilisateur déconnecté
+INFO 2025-03-29 02:18:26,587 views Tentative de connexion avec email: comptable@comptable.com
+INFO 2025-03-29 02:18:26,592 views Email trouvé en base: comptable@comptable.com
+INFO 2025-03-29 02:18:26,984 views Authentification réussie pour: comptable@comptable.com
+DEBUG 2025-03-29 02:18:27,008 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-29 02:18:27,565 decorators Accès autorisé à /tasks/: utilisateur connecté
+DEBUG 2025-03-29 02:20:02,699 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-29 02:20:20,694 decorators Accès autorisé à /tasks/: utilisateur connecté
+DEBUG 2025-03-29 02:20:22,702 decorators Accès autorisé à /tasks/create/: utilisateur connecté
+DEBUG 2025-03-29 02:20:32,383 decorators Accès autorisé à /tasks/create/: utilisateur connecté
+DEBUG 2025-03-29 02:20:32,402 decorators Accès autorisé à /tasks/2/assign/: utilisateur connecté
+DEBUG 2025-03-29 02:20:39,783 decorators Accès autorisé à /tasks/2/assign/: utilisateur connecté
+DEBUG 2025-03-29 02:20:39,817 decorators Accès autorisé à /tasks/2/assign/: utilisateur connecté
+DEBUG 2025-03-29 02:20:43,722 decorators Accès autorisé à /tasks/2/: utilisateur connecté
+DEBUG 2025-03-29 02:20:45,847 decorators Accès autorisé à /tasks/: utilisateur connecté
+DEBUG 2025-03-29 02:20:49,231 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-29 02:20:49,678 decorators Accès autorisé à /tasks/: utilisateur connecté
+INFO 2025-03-29 02:20:50,365 views Utilisateur déconnecté
+INFO 2025-03-29 02:20:52,715 views Tentative de connexion avec email: comptable@comptable.com
+INFO 2025-03-29 02:20:52,718 views Email trouvé en base: comptable@comptable.com
+INFO 2025-03-29 02:20:53,113 views Authentification réussie pour: comptable@comptable.com
+DEBUG 2025-03-29 02:20:53,127 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-29 02:20:53,625 decorators Accès autorisé à /tasks/: utilisateur connecté
+INFO 2025-03-29 02:20:54,677 views Utilisateur déconnecté
+INFO 2025-03-29 02:20:57,327 views Tentative de connexion avec email: AGI@AGI.COM
+INFO 2025-03-29 02:20:57,330 views Email trouvé en base: AGI@AGI.COM
+INFO 2025-03-29 02:20:57,715 views Authentification réussie pour: AGI@AGI.COM
+DEBUG 2025-03-29 02:20:57,741 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-29 02:20:58,911 decorators Accès autorisé à /tasks/: utilisateur connecté
+DEBUG 2025-03-29 02:20:59,873 decorators Accès autorisé à /tasks/my-tasks/: utilisateur connecté
+DEBUG 2025-03-29 02:21:01,944 decorators Accès autorisé à /tasks/2/: utilisateur connecté
+DEBUG 2025-03-29 02:21:08,448 decorators Accès autorisé à /guide/: utilisateur connecté
+DEBUG 2025-03-29 02:21:09,648 decorators Accès autorisé à /missions/: utilisateur connecté
+DEBUG 2025-03-29 02:21:11,375 decorators Accès autorisé à /tasks/create/: utilisateur connecté
+DEBUG 2025-03-29 02:21:13,608 decorators Accès autorisé à /clients/: utilisateur connecté
+DEBUG 2025-03-29 02:21:14,136 decorators Accès autorisé à /missions/: utilisateur connecté
+WARNING 2025-03-29 02:21:14,544 decorators Accès refusé à /journaux/: rôle insuffisant (AGI)
+WARNING 2025-03-29 02:21:15,218 decorators Accès refusé à /factures/: rôle insuffisant (AGI)
+DEBUG 2025-03-29 02:21:15,690 decorators Accès autorisé à /prestations/: utilisateur connecté
+INFO 2025-03-29 02:21:16,700 views Utilisateur déconnecté
+INFO 2025-03-29 02:21:24,429 views Tentative de connexion avec email: raf@raf.com
+INFO 2025-03-29 02:21:24,431 views Email trouvé en base: raf@raf.com
+INFO 2025-03-29 02:21:24,819 views Authentification réussie pour: raf@raf.com
+DEBUG 2025-03-29 02:21:24,847 decorators Accès autorisé à /home/: utilisateur connecté
+DEBUG 2025-03-29 02:21:26,124 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-29 02:21:26,777 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-29 02:21:28,441 decorators Accès autorisé à /collaborateurs/: utilisateur connecté
+DEBUG 2025-03-29 02:21:29,496 decorators Accès autorisé à /feuilles-de-temps/: utilisateur connecté
+DEBUG 2025-03-29 02:21:30,615 decorators Accès autorisé à /prestations/: utilisateur connecté
+DEBUG 2025-03-29 02:21:31,216 decorators Accès autorisé à /factures/: rôle RAF autorisé
+DEBUG 2025-03-29 02:21:32,096 decorators Accès autorisé à /tasks/create/: utilisateur connecté
+DEBUG 2025-03-29 02:21:34,232 decorators Accès autorisé à /tasks/: utilisateur connecté

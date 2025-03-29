@@ -52,9 +52,19 @@
 {% if modifiable %}
     <a href="{% url 'ajouter_ligne' journal.id %}" class="btn">Ajouter une ligne</a>
     <a href="{% url 'modifier_journal' journal.id %}" class="btn">Modifier le journal</a>
+    
+    {% if journal.statut == 'brouillon' %}
+    <a href="{% url 'create_task_with_params' 'JOURNAL_VALIDATION' journal.id %}" class="btn btn-workflow">Demander validation</a>
+    {% endif %}
 {% else %}
     <p class="info">Ce journal ne peut pas être modifié car il est associé à une facture.</p>
 {% endif %}
 
 <a href="{% url 'journaux' %}" class="btn">Retour à la liste des journaux</a>
+
+<style>
+    .btn-workflow {
+        background-color: #9c27b0;
+    }
+</style>
 {% endblock %}

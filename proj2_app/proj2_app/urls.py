@@ -53,6 +53,15 @@ urlpatterns = [
     path('factures/<int:facture_id>/ajouter-paiement/', views.ajouter_paiement, name='ajouter_paiement'),
     path('paiements/<int:id>/', views.detail_paiement, name='detail_paiement'),
     path('paiements/<int:id>/supprimer/', views.supprimer_paiement, name='supprimer_paiement'),
+    
+    # Task workflow URLs
+    path('tasks/', views.tasks_list, name='tasks_list'),
+    path('tasks/my-tasks/', views.my_tasks, name='my_tasks'),
+    path('tasks/create/', views.create_task, name='create_task'),
+    path('tasks/create/<str:task_type>/<int:related_id>/', views.create_task, name='create_task_with_params'),
+    path('tasks/<int:task_id>/assign/', views.assign_task, name='assign_task'),
+    path('tasks/<int:task_id>/', views.task_detail, name='task_detail'),
+    path('tasks/assignment/<int:assignment_id>/update/<str:new_status>/', views.update_task_status, name='update_task_status'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

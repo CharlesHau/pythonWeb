@@ -8,7 +8,11 @@
     <button type="submit" class="btn">Rechercher</button>
 </form>
 
-<a href="{% url 'creer_client' %}" class="btn">Créer un nouveau client</a>
+<div class="action-buttons">
+    <a href="{% url 'creer_client' %}" class="btn">Créer un nouveau client</a>
+    <a href="{% url 'create_task' %}?task_type=CLIENT_CREATION" class="btn btn-workflow">Demander création de client</a>
+</div>
+
 <table border="1">
     <thead>
         <tr>
@@ -35,4 +39,15 @@
         {% endfor %}
     </tbody>
 </table>
+
+<style>
+    .action-buttons {
+        margin: 15px 0;
+    }
+    
+    .btn-workflow {
+        background-color: #9c27b0;
+        margin-left: 10px;
+    }
+</style>
 {% endblock %}
