@@ -2,7 +2,13 @@
 
 {% block content %}
 <h1>Détails de la Feuille de Temps</h1>
-
+{% if messages %}
+<div class="error-message">
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
 <!-- Informations de la feuille de temps -->
 <table border="1">
     <tr>
@@ -48,7 +54,12 @@
 
 <!-- Actions -->
 
-<a href="{% url 'ajouter_ligne_feuille_de_temps' feuille.id %}" class="btn">Ajouter une ligne</a>
+{% if feuille.mission and feuille.mission.statut != 'fermé' %}
+    <a href="{% url 'ajouter_ligne_feuille_de_temps' feuille.id %}" class="btn">Ajouter une ligne</a>
+{% endif %}
+{% if  feuille.mission and feuille.mission.statut == 'fermé'%}
 
+<a class="btn" href="#" >La mission est fermée et la <br> feuille ne peut pas être modifiée</a>
+{% endif %}
 <a href="{% url 'feuilles_de_temps' %}" class="btn">Retour à la liste des feuilles de temps</a>
 {% endblock %}

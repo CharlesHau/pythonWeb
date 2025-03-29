@@ -4,6 +4,7 @@ from projManagement import views
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
+    path('guide/', views.guide_utilisation, name='guide_utilisation'),
     path("admin/", admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),  # Includes auth-related URLs
     path('', views.home, name='home'),

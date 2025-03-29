@@ -1,0 +1,768 @@
+{% extends 'projManagement/overlay.html' %}
+
+{% block content %}
+<div class="guide-container">
+    <div class="guide-header">
+        <h1>Guide d'utilisation</h1>
+        <p class="guide-intro">
+            Bienvenue sur notre système de gestion des missions. Cette application web est conçue pour faciliter la gestion 
+            complète des missions, journaux, factures et feuilles de temps dans un environnement professionnel.
+        </p>
+    </div>
+
+    <div class="guide-nav">
+        <h2>Table des matières</h2>
+        <ul>
+            <li><a href="#roles">Rôles et permissions</a></li>
+            <li><a href="#fonctionnalites">Fonctionnalités principales</a></li>
+            <li><a href="#clients">Gestion des clients</a></li>
+            <li><a href="#missions">Gestion des missions</a></li>
+            <li><a href="#journaux">Gestion des journaux</a></li>
+            <li><a href="#factures">Gestion des factures</a></li>
+            <li><a href="#prestations">Gestion des prestations</a></li>
+            <li><a href="#collaborateurs">Gestion des collaborateurs</a></li>
+            <li><a href="#feuilles">Gestion des feuilles de temps</a></li>
+            <li><a href="#diagramme">Diagramme de classes</a></li>
+            <li><a href="#flux">Flux de travail typiques</a></li>
+        </ul>
+    </div>
+
+    <section id="roles" class="guide-section">
+        <h2>Rôles et permissions</h2>
+        <p>
+            L'application distingue quatre types d'utilisateurs, chacun avec des permissions spécifiques :
+        </p>
+        <ul>
+            <li><strong>Comptable</strong> : Peut saisir et gérer les journaux</li>
+            <li><strong>Responsable Administratif et Financier (RAF)</strong> : Peut valider, créer les journaux et créer les factures et enregister des paiements</li>
+            <li><strong>Associé</strong> : Dispose de toutes les permissions et peut accéder aux reportings</li>
+            <li><strong>L'assistant de gestion</strong> : Peut lire toutes les données mais ne peut créer que des missions et des clients</li>
+        </ul>
+
+        <table class="permissions-table">
+            <thead>
+                <tr>
+                    <th>Fonctionnalité</th>
+                    <th>Assistant de gestion</th>
+                    <th>Comptable</th>
+                    <th>RAF</th>
+                    <th>Associé</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Clients</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                </tr>
+                <tr>
+                    <td>Missions</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                </tr>
+                <tr>
+                    <td>Journaux</td>
+                    <td>Inaccessible</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                </tr>
+                <tr>
+                    <td>Factures</td>
+                    <td>Inaccessible</td>
+                    <td>Consultation</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                </tr>
+                <tr>
+                    <td>Prestations</td>
+                    <td>Consultation</td>
+                    <td>Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                </tr>
+                <tr>
+                    <td>Collaborateurs</td>
+                    <td>Consultation</td>
+                    <td>Consultation</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                </tr>
+                <tr>
+                    <td>Feuilles de temps</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                    <td>Création, Modification, Consultation</td>
+                </tr>
+                <tr>
+                    <td>Reporting</td>
+                    <td>Consultation</i></td>
+                    <td>Consultation</i></td>
+                    <td>Consultation</td>
+                    <td>Consultation</td>
+                </tr>
+                <tr>
+                    <td>Paiements</td>
+                    <td>Consultation</td>
+                    <td>Consultation</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                    <td>Création, Modification, Consultation, Suppression</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="fonctionnalites" class="guide-section">
+        <h2>Remarques</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Format de date</h3>
+                <p>
+                    La langue par défaut de l'application est l'anglais. Cela a un impact sur l'affichage des dates.
+                    En changeant la langue, on passe à un affichage français mais les champs de type date des formulaires sont alors vides dans l'interface utilisateur.
+                    Je ne sais pas expliquer ce comportement qui n'affecte pas la base  de données.
+                    Je recommande de ne pas modifier la langue.
+                </p>
+                <p>
+                    Voir proj2_app>settings.py
+                </p>
+                <br>
+                <ul>
+                    <li>LANGUAGE_CODE = "en-us"</li>
+                    <li>NomTIME_ZONE = "UTC"</li>
+                    <li>USE_I18N = True</li>
+                    <li>USE_TZ = True</li>
+                </ul>
+            </div>
+            <h3>Site web réactif</h3>
+            <p>
+                L'application est conçu pour un affichage sur ordinateur de bureau (idéalement 1920x1080).
+                Les affichages mobiles ne sont pas pris en charge. 
+            </p>
+        </div>
+    </section>
+    <section id="fonctionnalites" class="guide-section">
+        <h2>Fonctionnalités principales</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Page d'accueil</h3>
+                <p>
+                    La page d'accueil présente un tableau de bord avec des statistiques importantes :
+                </p>
+                <ul>
+                    <li>Nombre de missions actives</li>
+                    <li>Nombre de factures en attente</li>
+                    <li>Nombre total de clients</li>
+                    <li>Nombre total de journaux</li>
+                </ul>
+                <p>Elle offre également un accès rapide aux activités récentes et aux actions principales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="clients" class="guide-section">
+        <h2>Gestion des clients</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Créer un nouveau client</li>
+                    <li>Consulter les détails d'un client</li>
+                    <li>Modifier les informations d'un client</li>
+                    <li>Supprimer un client (uniquement s'il n'a aucune mission associée)</li>
+                    <li>Ajouter un logo pour le client</li>
+                </ul>
+                
+                <h3>Champs disponibles</h3>
+                <ul>
+                    <li>Nom et prénom</li>
+                    <li>Email (unique)</li>
+                    <li>Téléphone</li>
+                    <li>Adresse complète</li>
+                    <li>Logo (je n'ai pas réussi à faire fonctionner (joindre l'image dans la requête et ensuite l'enregistrer en paramétra) les images)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="missions" class="guide-section">
+        <h2>Gestion des missions</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Créer une nouvelle mission</li>
+                    <li>Consulter les détails d'une mission</li>
+                    <li>Modifier une mission</li>
+                    <li>Filtrer les missions par statut (en cours, en attente, fermé)</li>
+                    <li>Consulter les journaux et feuilles de temps associés</li>
+                </ul>
+                
+                <h3>Règles importantes</h3>
+                <div class="rules-box">
+                    <p><i class="fas fa-exclamation-triangle"></i> Une mission ne peut pas être fermée si elle a des factures impayées</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Seules les missions en cours ou en attente peuvent avoir des feuilles de temps</p>
+                </div>
+                
+                <h3>Champs disponibles</h3>
+                <ul>
+                    <li>Titre et libellé</li>
+                    <li>Description</li>
+                    <li>Client</li>
+                    <li>Dates de début et de fin</li>
+                    <li>Budget</li>
+                    <li>Statut (en cours, en attente, fermé)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="journaux" class="guide-section">
+        <h2>Gestion des journaux</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Créer un nouveau journal (toujours avec statut "brouillon" initialement)</li>
+                    <li>Consulter les détails d'un journal</li>
+                    <li>Modifier un journal (si non associé à une facture)</li>
+                    <li>Ajouter des lignes au journal</li>
+                    <li>Modifier les lignes d'un journal</li>
+                </ul>
+                
+                <h3>Règles importantes</h3>
+                <div class="rules-box">
+                    <p><i class="fas fa-exclamation-triangle"></i> Un journal est créé avec le statut "brouillon" par défaut</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Un journal doit être "validé" pour pouvoir créer une facture</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Un journal ne peut plus être modifié une fois qu'une facture lui est associée</p>
+                </div>
+                
+                <h3>Champs disponibles</h3>
+                <ul>
+                    <li>Mission associée</li>
+                    <li>Statut (brouillon, validé)</li>
+                    <li>Date de création (automatique)</li>
+                    <li>Lignes de prestations</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="factures" class="guide-section">
+        <h2>Gestion des factures</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Créer une facture à partir d'un journal validé</li>
+                    <li>Consulter les détails d'une facture</li>
+                    <li>Ajouter des paiements à une facture</li>
+                    <li>Suivre le statut des paiements</li>
+                </ul>
+                
+                <h3>Règles importantes</h3>
+                <div class="rules-box">
+                    <p><i class="fas fa-exclamation-triangle"></i> Seuls les RAF et Associés peuvent créer des factures</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Une facture ne peut être créée qu'à partir d'un journal au statut "validé"</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Le montant total est calculé automatiquement en fonction des lignes du journal</p>
+                </div>
+                
+                <h3>Champs disponibles</h3>
+                <ul>
+                    <li>Journal associé</li>
+                    <li>Date d'émission (automatique)</li>
+                    <li>Montant total (calculé)</li>
+                    <li>Statut (impayé, payé, en retard)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="prestations" class="guide-section">
+        <h2>Gestion des prestations</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Créer une nouvelle prestation</li>
+                    <li>Consulter les détails d'une prestation</li>
+                    <li>Modifier une prestation</li>
+                </ul>
+                
+                <h3>Champs disponibles</h3>
+                <ul>
+                    <li>Diminutif (code unique)</li>
+                    <li>Description</li>
+                    <li>Prix</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="collaborateurs" class="guide-section">
+        <h2>Gestion des collaborateurs</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Créer un nouveau collaborateur</li>
+                    <li>Consulter les détails d'un collaborateur</li>
+                    <li>Modifier un collaborateur</li>
+                    <li>Supprimer un collaborateur (si aucune feuille de temps associée)</li>
+                </ul>
+                
+                <h3>Champs disponibles</h3>
+                <ul>
+                    <li>Nom et prénom</li>
+                    <li>Email (unique)</li>
+                    <li>Rôle (Comptable, RAF, Associé)</li>
+                    <li>Tarif horaire</li>
+                    <li>Mot de passe</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="feuilles" class="guide-section">
+        <h2>Gestion des feuilles de temps</h2>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="feature-content">
+                <h3>Fonctionnalités</h3>
+                <ul>
+                    <li>Créer une nouvelle feuille de temps</li>
+                    <li>Consulter les détails d'une feuille de temps</li>
+                    <li>Ajouter des lignes à une feuille de temps</li>
+                </ul>
+                
+                <h3>Règles importantes</h3>
+                <div class="rules-box">
+                    <p><i class="fas fa-exclamation-triangle"></i> Les feuilles de temps ne peuvent être créées que pour des missions en cours ou en attente</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Le montant d'une ligne est automatiquement calculé en fonction du tarif horaire du collaborateur</p>
+                </div>
+                
+                <h3>Champs disponibles</h3>
+                <ul>
+                    <li>Mission associée</li>
+                    <li>Collaborateur</li>
+                    <li>Date de création</li>
+                    <li>Lignes avec heures travaillées et description</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="diagramme" class="guide-section">
+        <h2>Diagramme de classes</h2>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+                classDiagram
+                    class Client {
+                        +String nom
+                        +String prenom
+                        +String email
+                        +String telephone
+                        +String adresse
+                        +String ville
+                        +String code_postal
+                        +String pays
+                        +DateTime date_inscription
+                        +Boolean statut
+                        +ImageField logo
+                    }
+                    
+                    class Mission {
+                        +String title
+                        +String description
+                        +Date start_date
+                        +Date end_date
+                        +String libelle
+                        +Decimal budget
+                        +String statut
+                        +Client client
+                    }
+                    
+                    class Journal {
+                        +Mission mission
+                        +String statut
+                        +Date date_creation
+                    }
+                    
+                    class Ligne {
+                        +Journal journal
+                        +Prestation prestation
+                        +Date date
+                        +String description
+                        +Integer quantite
+                        +Decimal prix_total()
+                    }
+                    
+                    class Facture {
+                        +Journal journal
+                        +Date date_emission
+                        +Decimal montant_total
+                        +String statut
+                    }
+                    
+                    class Prestation {
+                        +String diminutif
+                        +String description
+                        +Decimal prix
+                    }
+                    
+                    class Collaborateur {
+                        +String nom
+                        +String prenom
+                        +String email
+                        +String password
+                        +String role
+                        +Decimal tarif_horaire
+                    }
+                    
+                    class FeuilleDeTemps {
+                        +Mission mission
+                        +Collaborateur collaborateur
+                        +Date date_creation
+                    }
+                    
+                    class LigneDeFeuilleDeTemps {
+                        +FeuilleDeTemps feuille_de_temps
+                        +Date date
+                        +Decimal heures_travaillees
+                        +String description
+                        +Decimal montant
+                    }
+                    
+                    class Paiement {
+                        +Facture facture
+                        +Date date_paiement
+                        +Decimal montant
+                        +String reference
+                        +String mode_paiement
+                        +String commentaire
+                        +DateTime date_creation
+                    }
+                    
+                    Client "1" --> "*" Mission
+                    Mission "1" --> "*" Journal
+                    Mission "1" --> "*" FeuilleDeTemps
+                    Journal "1" --> "*" Ligne
+                    Journal "1" --> "0..1" Facture
+                    Ligne "*" --> "1" Prestation
+                    Collaborateur "1" --> "*" FeuilleDeTemps
+                    FeuilleDeTemps "1" --> "*" LigneDeFeuilleDeTemps
+                    Facture "1" --> "*" Paiement
+            </div>
+        </div>
+    </section>
+
+    
+
+  
+
+    
+</div>
+
+<style>
+    /* Styles pour le guide d'utilisation */
+
+    .guide-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    
+    .guide-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      color: white;
+    }
+    
+    .guide-header h1 {
+      margin-bottom: 1rem;
+      color: white;
+      border-bottom: none;
+    }
+    
+    .guide-intro {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .guide-nav {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .guide-nav h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .guide-nav ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem 1.5rem;
+      padding-left: 1.5rem;
+    }
+    
+    .guide-nav a {
+      color: var(--primary);
+      text-decoration: none;
+      display: inline-block;
+      padding: 0.25rem 0;
+      transition: all 0.2s ease;
+    }
+    
+    .guide-nav a:hover {
+      color: var(--primary-hover);
+      transform: translateX(5px);
+    }
+    
+    .guide-section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 2rem;
+    }
+    
+    .guide-section h2 {
+      color: var(--secondary);
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--bg-light);
+      margin-bottom: 1.5rem;
+    }
+    
+    .guide-section h3 {
+      color: var(--primary);
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .permissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      box-shadow: var(--box-shadow);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+    
+    .permissions-table th,
+    .permissions-table td {
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .permissions-table th:first-child,
+    .permissions-table td:first-child {
+      text-align: left;
+    }
+    
+    .permissions-table th {
+      background-color: var(--secondary);
+      color: white;
+    }
+    
+    .permissions-table tr:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+    
+    .text-success {
+      color: var(--success);
+    }
+    
+    .text-danger {
+      color: var(--accent);
+    }
+    
+    .feature-card {
+      display: flex;
+      gap: 1.5rem;
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--box-shadow);
+      margin-bottom: 1.5rem;
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      min-width: 4rem;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .feature-content {
+      flex: 1;
+    }
+    
+    .feature-content h3 {
+      margin-top: 0;
+    }
+    
+    .feature-content ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .rules-box {
+      background-color: #fff8e6;
+      border-left: 4px solid var(--warning);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+    
+    .rules-box p {
+      margin: 0.5rem 0;
+    }
+    
+    .rules-box i {
+      color: var(--warning);
+      margin-right: 0.5rem;
+    }
+    
+    .diagram-container {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--box-shadow);
+      overflow-x: auto;
+    }
+    
+    .workflow-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .workflow {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .workflow h3 {
+      margin-top: 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .workflow ol {
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .workflow li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .tips-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .tip {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--box-shadow);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .tip i {
+      font-size: 1.5rem;
+      color: var(--warning);
+    }
+    
+    .guide-footer {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: var(--bg-light);
+      border-radius: var(--border-radius);
+      text-align: center;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .feature-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .feature-icon {
+        margin-bottom: 1rem;
+      }
+      
+      .workflow-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .guide-nav ul {
+        grid-template-columns: 1fr;
+      }
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      mermaid.initialize({ startOnLoad: true });
+    });
+  </script>
+{% endblock %}

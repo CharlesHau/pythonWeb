@@ -11,6 +11,7 @@
     <header>
         <nav>
             <ul>
+                <li><a href="{% url 'guide_utilisation' %}">Guide d'utilisation</a></li>
                 <li><a href="{% url 'home' %}">Accueil</a></li>
                 <li><a href="{% url 'clients' %}">Clients</a></li>
                 <li><a href="{% url 'missions' %}">Missions</a></li>
@@ -19,6 +20,7 @@
                 <li><a href="{% url 'prestations' %}">Prestations</a></li>
                 <li><a href="{% url 'collaborateurs' %}">Collaborateurs</a></li>
                 <li><a href="{% url 'feuilles_de_temps' %}">Feuilles de temps</a></li>
+                <li class="nav-right"><a href="{% url 'logout' %}" class="nav-logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
             </ul>
         </nav>
     </header>

@@ -3,10 +3,10 @@
 {% block content %}
 <h1>Liste des Prestations</h1>
 <form method="GET" action="">
-    <input type="text" name="q" placeholder="Rechercher un client..." value="{{ request.GET.q }}">
+    <input type="text" name="q" placeholder="Rechercher un attribut..." value="{{ request.GET.q }}">
     <button type="submit" class="btn">Rechercher</button>
 </form>
-<a href="{% url 'creer_prestation' %}" class="btn">Créer un nouveau client</a>
+<a href="{% url 'creer_prestation' %}" class="btn">Créer une nouvelle prestation</a>
 <table border="1">
     <thead>
         <tr>

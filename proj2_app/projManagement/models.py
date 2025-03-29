@@ -8,6 +8,7 @@ class Collaborateur(models.Model):
         COMPTABLE = 'COMPTABLE', 'Comptable'
         DIRECTEUR = 'RAF', 'Responsable administratif et financier'
         ASSOCIE = 'ASSOCIE', 'Associé'
+        AGI = 'AGI', 'Assistant de gestion'
 
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
@@ -90,6 +91,7 @@ class Journal(models.Model):
     mission = models.ForeignKey(Mission, on_delete=models.CASCADE, related_name="journaux")
     statut = models.CharField(max_length=20, choices=[("brouillon", "Brouillon"), ("validé", "Validé")])
     date_creation = models.DateField(default=now, editable=False)
+    description = models.TextField(editable=True, blank=True, null=True)
 
     def __str__(self):
         return f"Journal de la mission {self.mission.title}"

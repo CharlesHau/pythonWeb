@@ -4,7 +4,7 @@
 <h1>Liste des Journaux</h1>
 
 <form method="GET" action="">
-    <input type="text" name="q" placeholder="Rechercher un client..." value="{{ request.GET.q }}">
+    <input type="text" name="q" placeholder="Rechercher un attribut..." value="{{ request.GET.q }}">
     <button type="submit" class="btn">Rechercher</button>
 </form>
 <a href="{% url 'creer_journal' %}" class="btn">Créer un nouveau journal</a>
@@ -12,6 +12,7 @@
     <thead>
         <tr>
             <th>Date</th>
+            <th>Description</th>
             <th>Mission</th>
             <th>Statut</th>
         </tr>
@@ -20,6 +21,7 @@
         {% for journal in journaux %}
         <tr>
             <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.date_creation }}</a></td>
+            <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.description }}</a></td>
             <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.mission.title }}</a></td>
             <td><a href="{% url 'detail_journal' journal.id %}">{{ journal.statut }}</a></td>
         </tr>

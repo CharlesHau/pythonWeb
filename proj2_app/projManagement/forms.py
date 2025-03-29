@@ -37,7 +37,7 @@ class JournalForm(forms.ModelForm):
     
     class Meta:
         model = Journal
-        fields = ['mission', 'statut']
+        fields = ['mission', 'statut','description']
 
 class LigneForm(forms.ModelForm):
     class Meta:

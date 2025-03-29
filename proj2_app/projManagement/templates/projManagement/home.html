@@ -1,28 +1,150 @@
 {% extends 'projManagement/overlay.html' %}
 
 {% block content %}
-<h1>Bienvenue sur le site</h1>
-<p>test.</p>
+<div class="home-container">
+    <!-- En-tête de bienvenue -->
+    <div class="welcome-header">
+        <h1>Tableau de bord</h1>
+        <p class="welcome-message">Bienvenue sur le portail de gestion des missions</p>
+        
+        <!-- Date du jour -->
+        <div class="current-date">
+            {{ current_date|date:"l d F Y" }}
+        </div>
+    </div>
 
-<div class="dashboard">
-    <div class="card">
-        <h2>Missions Actives</h2>
-        <p>{{ missions_actives }}</p>
+    <!-- Cartes de statistiques -->
+    <div class="stats-dashboard">
+        <div class="stat-card active-missions">
+            <div class="stat-icon">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <div class="stat-content">
+                <h2>{{ missions_actives }}</h2>
+                <p>Missions actives</p>
+            </div>
+            <a href="{% url 'missions_en_cours' %}" class="stat-link">Voir détails</a>
+        </div>
+
+        <div class="stat-card pending-invoices">
+            <div class="stat-icon">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div class="stat-content">
+                <h2>{{ factures_en_attente }}</h2>
+                <p>Factures en attente</p>
+            </div>
+            <a href="{% url 'factures' %}" class="stat-link">Voir détails</a>
+        </div>
+
+        <div class="stat-card clients">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <h2>{{ total_clients }}</h2>
+                <p>Clients enregistrés</p>
+            </div>
+            <a href="{% url 'clients' %}" class="stat-link">Voir détails</a>
+        </div>
+
+        <div class="stat-card journals">
+            <div class="stat-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-content">
+                <h2>{{ total_journaux }}</h2>
+                <p>Journaux enregistrés</p>
+            </div>
+            <a href="{% url 'journaux' %}" class="stat-link">Voir détails</a>
+        </div>
     </div>
-    <div class="card">
-        <h2>Factures en attente</h2>
-        <p>{{ factures_en_attente }}</p>
+
+    <!-- Sections d'activité récente -->
+    <div class="recent-activity">
+        <div class="activity-section">
+            <h2>Missions récentes</h2>
+            <div class="activity-list">
+                {% if recent_missions %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Client</th>
+                                <th>Statut</th>
+                                <th>Date de début</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mission in recent_missions %}
+                            <tr>
+                                <td><a href="{% url 'detail_mission' mission.id %}">{{ mission.title }}</a></td>
+                                <td>{{ mission.client.nom }} {{ mission.client.prenom }}</td>
+                                <td>{{ mission.statut }}</td>
+                                <td>{{ mission.start_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="no-data">Aucune mission récente</p>
+                {% endif %}
+                <a href="{% url 'missions' %}" class="view-all">Voir toutes les missions</a>
+            </div>
+        </div>
+
+        <div class="activity-section">
+            <h2>Factures récentes</h2>
+            <div class="activity-list">
+                {% if recent_factures %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Mission</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for facture in recent_factures %}
+                            <tr>
+                                <td><a href="{% url 'detail_facture' facture.id %}">{{ facture.id }}</a></td>
+                                <td>{{ facture.journal.mission.title }}</td>
+                                <td>{{ facture.montant_total|floatformat:2 }} €</td>
+                                <td>{{ facture.statut }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="no-data">Aucune facture récente</p>
+                {% endif %}
+                <a href="{% url 'factures' %}" class="view-all">Voir toutes les factures</a>
+            </div>
+        </div>
     </div>
-    <div class="card">
-        <h2>Nombre de Clients</h2>
-        <p>{{ total_clients }}</p>
-    </div>
-    <div class="card">
-        <h2>Journaux enregistrés</h2>
-        <p>{{ total_journaux }}</p>
+
+    <!-- Actions rapides -->
+    <div class="quick-actions">
+        <h2>Actions rapides</h2>
+        <div class="action-buttons">
+            <a href="{% url 'creer_mission' %}" class="action-btn">
+                <i class="fas fa-plus"></i> Nouvelle mission
+            </a>
+            <a href="{% url 'creer_client' %}" class="action-btn">
+                <i class="fas fa-user-plus"></i> Nouveau client
+            </a>
+            <a href="{% url 'creer_journal' %}" class="action-btn">
+                <i class="fas fa-book"></i> Nouveau journal
+            </a>
+            <a href="{% url 'creer_facture' %}" class="action-btn">
+                <i class="fas fa-file-invoice"></i> Nouvelle facture
+            </a>
+            <a href="{% url 'creer_feuille_de_temps' %}" class="action-btn">
+                <i class="fas fa-clock"></i> Nouvelle feuille de temps
+            </a>
+        </div>
     </div>
 </div>
-
 {% endblock %}
-
-

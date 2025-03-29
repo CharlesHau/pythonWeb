@@ -79,17 +79,49 @@ def access_denied(request):
     """
     return render(request, 'registration/access_denied.html')
 @login_required
+
+def guide_utilisation(request):
+    """
+    Vue pour afficher le guide d'utilisation de l'application
+    """
+    # Pas besoin de contexte spécifique pour cette page
+    return render(request, 'projManagement/guide_utilisation.html')
+
+@login_required
 def home(request):
+    # Récupération des données existantes
     missions_actives = Mission.objects.filter(statut='en cours').count()
-    factures_en_attente = Facture.objects.filter(montant_total__gt=0).count()
+    factures_en_attente = Facture.objects.filter(statut='impayé').count()
     total_clients = Client.objects.count()
     total_journaux = Journal.objects.count()
+    
+    # Nouvelles données pour la page d'accueil améliorée
+    recent_missions = Mission.objects.all().order_by('-start_date')[:5]  # 5 missions les plus récentes
+    recent_factures = Facture.objects.all().order_by('-date_emission')[:5]  # 5 factures les plus récentes
+    
+    # Date du jour pour l'affichage
+    current_date = now()
+    
+    # Statistiques supplémentaires
+    factures_payees = Facture.objects.filter(statut='payé').count()
+    missions_en_attente = Mission.objects.filter(statut='en attente').count()
+    
+    # Calcul du montant total facturé
+    montant_total_facture = Facture.objects.aggregate(total=Sum('montant_total'))['total'] or 0
+    
     context = {
         'missions_actives': missions_actives,
         'factures_en_attente': factures_en_attente,
         'total_clients': total_clients,
         'total_journaux': total_journaux,
+        'recent_missions': recent_missions,
+        'recent_factures': recent_factures,
+        'current_date': current_date,
+        'factures_payees': factures_payees,
+        'missions_en_attente': missions_en_attente,
+        'montant_total_facture': montant_total_facture,
     }
+    
     return render(request, 'projManagement/home.html', context)
 @login_required
 def clients(request):
@@ -107,18 +139,20 @@ def clients(request):
     return render(request, "projManagement/clients.html", {"clients": clients_list, "query": query})
 @login_required
 def creer_client(request):
+    print("Entrée dans la vue creer_client")
     if request.method == 'POST':
-        print("FILES:", request.FILES)  # Affiche les fichiers téléchargés
+        print("Méthode POST détectée")
         formulaire = ClientForm(request.POST, request.FILES)
         if formulaire.is_valid():
-            client = formulaire.save()
-            print("Client créé:", client.id)
-            print("Logo URL:", client.logo.url if client.logo else "Pas de logo")
+            print("Formulaire valide, sauvegarde en cours")
+            formulaire.save()
             return HttpResponseRedirect(reverse('clients'))
         else:
-            print("Erreurs du formulaire:", formulaire.errors)
+            print("Formulaire invalide")
     else:
+        print("Méthode GET détectée")
         formulaire = ClientForm()
+    print("Affichage du formulaire")
     return render(request, 'projManagement/creationClient.html', {'form': formulaire})
 @login_required
 def supprimer_client(request, id):
@@ -352,6 +386,23 @@ def modifier_mission(request, id):
     mission = Mission.objects.filter(id=id).first()
     if request.method == 'POST':
         formulaire = MissionForm(request.POST, instance=mission)
+        
+        # Vérifier si la mission passe de non-fermé à fermé
+        statut_precedent = mission.statut
+        nouveau_statut = request.POST.get('statut')
+        
+        # Si on tente de passer au statut "fermé"
+        if nouveau_statut == "fermé" and statut_precedent != "fermé":
+            # Vérifier s'il existe des factures impayées pour cette mission
+            factures_impayees = Facture.objects.filter(
+                journal__mission=mission
+            ).exclude(statut="payé").exists()
+            
+            if factures_impayees:
+                # Ajouter un message d'erreur
+                messages.error(request, "Impossible de fermer cette mission : des factures sont encore impayées.")
+                return render(request, 'projManagement/modifierMission.html', {'form': formulaire, 'mission': mission})
+        
         if formulaire.is_valid():
             formulaire.save()
             return HttpResponseRedirect(reverse('detail_mission', args=[id]))
@@ -457,10 +508,18 @@ def creer_journal(request):
     if request.method == 'POST':
         formulaire = JournalForm(request.POST)
         if formulaire.is_valid():
-            formulaire.save()
+            # On crée le journal sans le sauvegarder immédiatement
+            journal = formulaire.save(commit=False)
+            # On force le statut à "brouillon"
+            journal.statut = "brouillon"
+            # Puis on sauvegarde
+            journal.save()
             return HttpResponseRedirect(reverse('journaux'))
     else:
         formulaire = JournalForm()
+        # On peut aussi cacher le champ statut dans le formulaire
+        formulaire.fields['statut'].initial = "brouillon"
+    
     return render(request, 'projManagement/creationJournal.html', {'form': formulaire})
 @comptable_required
 def detail_journal(request, id):
@@ -510,8 +569,17 @@ def creer_facture(request):
         if formulaire.is_valid():
             facture = formulaire.save(commit=False)
             
-            # Calcul du montant total basé sur les lignes du journal
+            # Vérifier que le journal est bien au statut "validé"
             journal = facture.journal
+            if journal.statut != "validé":
+                messages.error(request, "Impossible de créer une facture : le journal doit être au statut 'validé'.")
+                
+                # Récupérer à nouveau les journaux disponibles pour le formulaire
+                journaux_disponibles = Journal.objects.filter(facture__isnull=True, statut="validé")
+                formulaire.fields['journal'].queryset = journaux_disponibles
+                return render(request, 'projManagement/creationFacture.html', {'form': formulaire})
+            
+            # Calcul du montant total basé sur les lignes du journal
             montant_total = sum(ligne.prestation.prix * ligne.quantite for ligne in journal.lignes.all())
             
             facture.montant_total = montant_total
@@ -519,9 +587,8 @@ def creer_facture(request):
             
             return HttpResponseRedirect(reverse('factures'))
     else:
-        #formulaire = FactureForm(initial={'date_emission': now()})
-        # Filtrer les journaux qui n'ont pas encore de facture associée
-        journaux_disponibles = Journal.objects.filter(facture__isnull=True)
+        # Filtrer les journaux qui n'ont pas encore de facture associée ET qui sont au statut "validé"
+        journaux_disponibles = Journal.objects.filter(facture__isnull=True, statut="validé")
         formulaire = FactureForm(initial={'date_emission': now()})
         formulaire.fields['journal'].queryset = journaux_disponibles
     
@@ -697,11 +764,18 @@ def creer_feuille_de_temps(request):
             return HttpResponseRedirect(reverse('feuilles_de_temps'))  # Redirige vers la liste des feuilles de temps
     else:
         formulaire = FeuilleDeTempsForm()
+        # Filtrer pour n'inclure que les missions en cours ou en attente
+        formulaire.fields['mission'].queryset = Mission.objects.exclude(statut="fermé")
 
     return render(request, 'projManagement/creationFeuilleDeTemps.html', {'form': formulaire})
 @login_required
 def ajouter_ligne_feuille_de_temps(request, id):
     feuille = FeuilleDeTemps.objects.filter(id=id).first()
+    
+    # Vérifier si la mission associée à la feuille est fermée
+    if feuille.mission.statut == "fermé":
+        messages.error(request, "Impossible d'ajouter une ligne à une feuille de temps d'une mission fermée.")
+        return HttpResponseRedirect(reverse('detail_feuille_de_temps', args=[id]))
     
     if request.method == 'POST':
         formulaire = LigneFeuilleDeTempsForm(request.POST)
@@ -728,7 +802,6 @@ def ajouter_ligne_feuille_de_temps(request, id):
 
     # Rendre la page avec le formulaire et la feuille de temps
     return render(request, 'projManagement/ajouterLigneFeuilleDeTemps.html', {'form': formulaire, 'feuille': feuille})
-# Dans views.py
 
 @raf_required
 def ajouter_paiement(request, facture_id):
